@@ -32,6 +32,8 @@ gem 'jbuilder', '~> 2.5'
 #Api gems
 gem 'active_model_serializers'
 
+gem "devise"
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
@@ -39,5 +41,12 @@ end
 
 # Use sqlite3 as the database for Active Record
 group :development do
-  gem 'sqlite3'
+  	gem 'sqlite3'
+	gem 'listen'
+end
+
+group :test do
+  gem "rspec-rails", "~> 2.14"
+  gem "factory_girl_rails"
+  gem 'ffaker'
 end
