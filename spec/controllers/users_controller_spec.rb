@@ -10,7 +10,7 @@ describe UsersController do
 		end
 		
 		it "returns the information about a reporter on a hash" do
-			user_response = JSON.parse(response.body, symbolize_names: true)
+			user_response = json_response
 			user_response[:email].should eql @user.email
 		end
 		
@@ -25,7 +25,7 @@ describe UsersController do
 			end
 
 			it "renders the json representation for the user record just created" do
-				user_response = JSON.parse(response.body, symbolize_names: true)
+				user_response = json_response
 				user_response[:email].should eql @user_attributes[:email]
 			end
 
@@ -39,12 +39,12 @@ describe UsersController do
 			end
 			
 			it "renders an errors json" do
-				user_response = JSON.parse(response.body, symbolize_names: true)
+				user_response = json_response
 				user_response.should have_key(:errors)
 			end
 			
 			it "renders the json errors on why the user could not be created" do
-				user_response = JSON.parse(response.body, symbolize_names: true)
+				user_response = json_response
 				user_response[:errors][:email].should include "can't be blank"
 			end
 			
@@ -61,7 +61,7 @@ describe UsersController do
 			end
 			
 			it "renders the json representation for the updated user" do
-				user_response = JSON.parse(response.body, symbolize_names: true)
+				user_response = json_response
 				user_response[:email].should eql "newmail@example.com"
 			end
 			
@@ -75,12 +75,12 @@ describe UsersController do
 			end
 			
 			it "renders an errors json" do
-				user_response = JSON.parse(response.body, symbolize_names: true)
+				user_response = json_response
 				user_response.should have_key(:errors)
 			end
 			
 			it "renders the json errors on why the user could not be updated" do
-				user_response = JSON.parse(response.body, symbolize_names: true)
+				user_response = json_response
 				user_response[:errors][:email].should include "is invalid"
 			end
 			

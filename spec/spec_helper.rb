@@ -28,7 +28,8 @@ Shoulda::Matchers.configure do |config|
   end
 end
 RSpec.configure do |config|
-  config.include Devise::Test::ControllerHelpers, type: :controller
+	config.include Request::JsonHelpers, :type => :controller
+  	config.include Devise::Test::ControllerHelpers, type: :controller
 end
 RSpec.configure do |config|
   # ## Mock Framework
