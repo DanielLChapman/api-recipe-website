@@ -4,6 +4,6 @@ FactoryGirl.define do
     description { FFaker::Book.description }
     meal "Breakfast"
     picture { FFaker::Avatar.image }
-    user_id 1
+    user
   end
 end
