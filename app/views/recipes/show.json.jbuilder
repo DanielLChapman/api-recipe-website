@@ -1,0 +1,1 @@
+json.(@recipe, :id, :title, :description, :meal, :picture)

@@ -6,7 +6,7 @@ describe UsersController do
 	describe "GET #show" do
 		before(:each) do
 			@user = FactoryGirl.create :user
-			get :show, params: {id: @user.id }, format: :json
+			get :show, params: {id: @user.id, format: :json}
 		end
 		
 		it "returns the information about a reporter on a hash" do
@@ -21,7 +21,7 @@ describe UsersController do
 		context "When is successfully created" do 
 			before(:each) do
 				@user_attributes = FactoryGirl.attributes_for :user
-				post :create, params: { user: @user_attributes }, format: :json
+				post :create, params: { user: @user_attributes, format: :json }
 			end
 
 			it "renders the json representation for the user record just created" do
@@ -35,7 +35,7 @@ describe UsersController do
 		context "when is not created" do
 			before(:each) do
 				@invalid_user_attributes = { password: "12345678", password_confirmation: "12345678" }
-				post :create, params: { user: @invalid_user_attributes }, format: :json
+				post :create, params: { user: @invalid_user_attributes, format: :json }
 			end
 			
 			it "renders an errors json" do
@@ -60,7 +60,7 @@ describe UsersController do
 		context "when is successfully updated" do
 			before(:each) do
 				patch :update, params: { id: @user.id,
-                         user: { email: "newmail@example.com" } }, format: :json
+                         user: { email: "newmail@example.com" } , format: :json }
 			end
 			
 			it "renders the json representation for the updated user" do
@@ -74,7 +74,7 @@ describe UsersController do
 		context "when is not updated" do
 			before(:each) do
 				@user = FactoryGirl.create :user
-				patch :update, params: {id: @user.id, user: {email: "newmailbademailexample.com"} }, format: :json
+				patch :update, params: {id: @user.id, user: {email: "newmailbademailexample.com"}, format: :json }
 			end
 			
 			it "renders an errors json" do
@@ -96,7 +96,7 @@ describe UsersController do
 		before(:each) do
 			@user = FactoryGirl.create :user
 			api_authorization_header @user.auth_token
-			delete :destroy, { id: @user.id }, format: :json
+			delete :destroy, { id: @user.id, format: :json }
 		end
 		
 		it {is_expected.to respond_with 204 }

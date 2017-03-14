@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 class UsersController < ApplicationController
 	before_action :authenticate_with_token!, only: [:update, :destroy]
 	respond_to :json

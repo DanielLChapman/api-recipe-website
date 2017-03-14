@@ -1,0 +1,1 @@
+json.array! @recipe, :id, :title, :description, :meal, :picture
