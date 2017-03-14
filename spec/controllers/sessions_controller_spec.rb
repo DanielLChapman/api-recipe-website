@@ -16,10 +16,10 @@ RSpec.describe SessionsController, type: :controller do
 			
 			it "returns the user record corresponding to the given credentials" do
 				@user.reload
-				json_response[:auth_token].should eql @user.auth_token
+				expect(json_response[:auth_token]).to eql @user.auth_token
 			end
 			
-			it { should respond_with 200 }
+			it { is_expected.to respond_with 200 }
 		end
 		
 		context "when the credentials are incorrect" do
@@ -29,10 +29,10 @@ RSpec.describe SessionsController, type: :controller do
 			end
 			
 			it "returns a json with an error" do
-				json_response[:errors].should eql "Invalid email or password"
+				expect(json_response[:errors]).to eql "Invalid email or password"
 			end
 			
-			it { should respond_with 422 }
+			it { is_expected.to respond_with 422 }
 		end
 	
 	end
@@ -44,6 +44,6 @@ RSpec.describe SessionsController, type: :controller do
 			delete :destroy, id: @user.auth_token
 		end
 		
-		it { should respond_with 204 }
+		it { is_expected.to respond_with 204 }
 	end
 end

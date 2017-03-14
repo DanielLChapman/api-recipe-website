@@ -17,7 +17,7 @@ describe Authenticable do
 		end
 		
 		it "returns the user from the authorization header" do
-			authentication.current_user.auth_token.should eql @user.auth_token
+			expect(authentication.current_user.auth_token).to eql @user.auth_token
 		end
 		
 	end
@@ -36,10 +36,10 @@ describe Authenticable do
 		end
 		
 		it "render a json error message" do
-			json_response[:errors].should eql "Not authenticated"
+			expect(json_response[:errors]).to eql "Not authenticated"
 		end
 		
-		it { should respond_with 401}
+		it { is_expected.to respond_with 401}
 	end
 	
 	describe "#user_signed_in?" do
@@ -50,7 +50,7 @@ describe Authenticable do
 				#authentication.stub(:current_user).and_return(@user)
 			end
 			
-			it { should be_user_signed_in }
+			it { is_expected.to be_user_signed_in }
 		end
 		
 		context "when there is no user on 'session'" do
@@ -60,7 +60,7 @@ describe Authenticable do
 				#authentication.stub(:current_user).and_return(nil)
 			end
 			
-			it {should_not be_user_signed_in}
+			it {is_expected.not_to be_user_signed_in}
 		end
 	end
 end
