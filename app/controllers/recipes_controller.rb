@@ -10,7 +10,7 @@ class RecipesController < ApplicationController
 	end
 	
 	def index
-		@recipe = Recipe.all
+		@recipe = Recipe.search(params)
 		respond_to do |format|
 			format.html
 			format.json

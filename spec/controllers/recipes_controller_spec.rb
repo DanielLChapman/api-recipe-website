@@ -12,7 +12,7 @@ RSpec.describe RecipesController do
 		
 		it "returns the information" do
 			recipe_response = JSON.parse(response.body, symbolize_names: true)
-			expect(recipe_response[:title]).to eql @recipe.title
+			expect(recipe_response[:recipe][:title]).to eql @recipe.title
 		end
 		
 		it { is_expected.to respond_with 200 }
@@ -26,7 +26,7 @@ RSpec.describe RecipesController do
 		
 		it "returns 4 records from the database" do
 			recipes_response = json_response
-			expect(recipes_response.length).to eql(4)
+			expect(recipes_response[:recipes].length).to eql(4)
 		end
 		
 		it { should respond_with 200 }
