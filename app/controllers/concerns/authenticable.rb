@@ -5,7 +5,7 @@ module Authenticable
 	end
 	
 	def authenticate_with_token!
-		redner json: { errors: "Not authenticated" },
+		render json: { errors: "Not authenticated" },
 		status: :unauthorized unless user_signed_in?
 	end
 	

@@ -4,6 +4,7 @@ class Recipe < ApplicationRecord
 	validates_inclusion_of :meal, :in => MEAL_NAMES
 	
 	belongs_to :user
+	has_many :steps, dependent: :destroy
 	
 	def self.search(params = {})
 		recipes = params[:recipe_ids].present?? Recipe.find(params[:recipe_ids]):Recipe.all

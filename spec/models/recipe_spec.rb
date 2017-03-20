@@ -16,6 +16,7 @@ RSpec.describe Recipe, type: :model do
 	it { is_expected.to validate_inclusion_of(:meal).in_array(%w[Dinner Breakfast Snack Lunch Dessert] ) }
 	
 	it { is_expected.to belong_to(:user) }
+	it { is_expected.to have_many(:steps) }
 	
 	describe ".filter_by_title" do
 		before(:each) do
@@ -85,5 +86,19 @@ RSpec.describe Recipe, type: :model do
 			end
 		end
 		
+	end
+	
+	describe "Recipe association" do
+		before do
+			@recipe.save
+			3.times { FactoryGirl.create :step, recipe: @recipe}
+		end
+		it "should destroy the associations on delete" do
+			steps = @recipe.steps
+			@recipe.destroy
+			steps.each do |steps|
+				expect(Step.find(steps)).to raise_error ActiveRecord::RecordNotFound
+			end
+		end
 	end
 end

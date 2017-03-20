@@ -21,6 +21,7 @@ describe User do
 	it { is_expected.to validate_uniqueness_of(:auth_token) }
 	
 	it { is_expected.to have_many(:recipes) }
+
 	describe "when email is not present" do
 		before { @user.email = " " }
 		it { is_expected.not_to be_valid }
@@ -44,13 +45,19 @@ describe User do
 	describe "Recipe association" do
 		before do
 			@user.save
-			3.times { FactoryGirl.create :recipe, user: @user }
+			3.times { 
+				@recipe = FactoryGirl.create :recipe, user: @user 
+				@recipe.save
+				@step = FactoryGirl.create :step, recipe: @recipe
+				@step.save
+			}
 		end
 		it "should destroy the associations on delete" do
 			recipes = @user.recipes
 			@user.destroy
 			recipes.each do |recipe|
 				expect(Recipe.find(recipe)).to raise_error ActiveRecord::RecordNotFound
+				expect(Step.find(recipe.steps)).to raise_error ActiveRecord::RecordNotFound
 			end
 		end
 	end
