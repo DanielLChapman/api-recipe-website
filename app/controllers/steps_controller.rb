@@ -3,7 +3,6 @@ class StepsController < ApplicationController
 	respond_to :json
 	
 	def index
-		#get the steps from recipe_id param
 		@recipe = Recipe.where("id=?", params[:recipe_id])
 		@steps = @recipe[0].steps.order(:order)
 		respond_to do |format|
