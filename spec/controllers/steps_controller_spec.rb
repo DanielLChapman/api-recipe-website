@@ -2,6 +2,7 @@ require 'spec_helper'
 
 RSpec.describe StepsController, type: :controller do
 
+	render_views
 	describe "POST #create" do
 		before(:each) do
 			@user = FactoryGirl.create :user
@@ -16,6 +17,31 @@ RSpec.describe StepsController, type: :controller do
 		end
 		
 		it { should respond_with 201 }
+	end
+	
+	describe "GET #index" do
+		before(:each) do
+			@recipe = FactoryGirl.create :recipe
+			@step1 = FactoryGirl.create :step, recipe: @recipe, order: 2
+			@step2 = FactoryGirl.create :step, recipe: @recipe, order: 4
+			@step3 = FactoryGirl.create :step, recipe: @recipe, order: 6
+			@step4 = FactoryGirl.create :step, recipe: @recipe, order: 1
+			get :index, params: {recipe_id: @recipe.id, format: :json}
+		end
+		
+		it "returns 4 records from the database" do
+			recipes_response = json_response
+			expect(recipes_response[:steps].length).to eql(4)
+		end
+		
+		it "should be in order" do
+			steps_response = json_response
+			expect(steps_response[:steps][0][:order]).to eql(1)
+			expect(steps_response[:steps][1][:order]).to eql(2)
+		end
+		
+		
+		it { should respond_with 200 }
 	end
 	
 	describe "PUT/PATCH #update" do

@@ -91,7 +91,19 @@ RSpec.describe Recipe, type: :model do
 	describe "Recipe association" do
 		before do
 			@recipe.save
-			3.times { FactoryGirl.create :step, recipe: @recipe}
+			@step1 = FactoryGirl.create :step, recipe: @recipe, instruction: "Boo ate this before"
+			@step2 = FactoryGirl.create :step, recipe: @recipe, instruction: "Boo powered through this before"
+			@step3 = FactoryGirl.create :step, recipe: @recipe, instruction: "Boo dominated this before"
+			@step4 = FactoryGirl.create :step, recipe: @recipe, instruction: "Boo ate this every day"
+		end
+		context "When a 'ATE' instruction pattern is sent it should search its own steps" do
+			it "returns the 3 steps matching" do
+				expect(@recipe.steps.filter_by_instruction("ate").length).to eql(3)
+			end
+			
+			it "returns the recipes matching" do
+				expect(@recipe.steps.filter_by_instruction("ate").sort).to match_array([@step1, @step3, @step4])
+			end
 		end
 		it "should destroy the associations on delete" do
 			steps = @recipe.steps

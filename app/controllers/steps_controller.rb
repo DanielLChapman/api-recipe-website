@@ -2,6 +2,15 @@ class StepsController < ApplicationController
 	before_action :authenticate_with_token!, only: [:create, :update, :destroy]
 	respond_to :json
 	
+	def index
+		#get the steps from recipe_id param
+		@recipe = Recipe.where("id=?", params[:recipe_id])
+		@steps = @recipe[0].steps.order(:order)
+		respond_to do |format|
+			format.json
+		end
+	end
+	
 	def create
 		recipe = Recipe.find(params[:recipe_id])
 		step = recipe.steps.build(step_params)
