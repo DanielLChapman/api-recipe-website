@@ -72,4 +72,15 @@ RSpec.describe IngredientsController, type: :controller do
 			it { should respond_with 422 }
 		end
 	end
+	describe "DELETE #destroy" do
+		before(:each) do
+			@user = FactoryGirl.create :user
+			api_authorization_header @user.auth_token
+			@recipe = FactoryGirl.create :recipe, user: @user
+			@ingredient = FactoryGirl.create :ingredient, recipe: @recipe
+			delete :destroy, params: {recipe_id: @recipe.id, id: @ingredient.id }
+		end
+		
+		it { should respond_with 204 }
+	end
 end
