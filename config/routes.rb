@@ -5,5 +5,6 @@ Rails.application.routes.draw do
 	resources :sessions, :only => [:create, :destroy]
 	resources :recipes, :only => [:show, :index, :create, :update, :destroy] do
 		resources :steps, :only => [:index, :create, :update, :destroy, :edit]
+		resources :ingredients, :only => [:index, :create, :update, :destroy, :edit]
 	end
 end

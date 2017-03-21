@@ -17,6 +17,7 @@ RSpec.describe Recipe, type: :model do
 	
 	it { is_expected.to belong_to(:user) }
 	it { is_expected.to have_many(:steps) }
+	it { is_expected.to have_many(:ingredients) }
 	
 	describe ".filter_by_title" do
 		before(:each) do
@@ -95,6 +96,7 @@ RSpec.describe Recipe, type: :model do
 			@step2 = FactoryGirl.create :step, recipe: @recipe, instruction: "Boo powered through this before"
 			@step3 = FactoryGirl.create :step, recipe: @recipe, instruction: "Boo dominated this before"
 			@step4 = FactoryGirl.create :step, recipe: @recipe, instruction: "Boo ate this every day"
+			4.times { FactoryGirl.create :ingredient, recipe: @recipe }
 		end
 		context "When a 'ATE' instruction pattern is sent it should search its own steps" do
 			it "returns the 3 steps matching" do
@@ -105,11 +107,16 @@ RSpec.describe Recipe, type: :model do
 				expect(@recipe.steps.filter_by_instruction("ate").sort).to match_array([@step1, @step3, @step4])
 			end
 		end
+		
 		it "should destroy the associations on delete" do
 			steps = @recipe.steps
+			ingredients = @recipe.ingredients
 			@recipe.destroy
 			steps.each do |steps|
 				expect(Step.find(steps)).to raise_error ActiveRecord::RecordNotFound
+			end
+			ingredients.each do |ingr|
+				expect(Ingredient.find(ingr)).to raise_error ActiveRecord::RecordNotFound
 			end
 		end
 	end

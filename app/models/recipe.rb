@@ -5,6 +5,7 @@ class Recipe < ApplicationRecord
 	
 	belongs_to :user
 	has_many :steps, dependent: :destroy
+	has_many :ingredients, dependent: :destroy
 	
 	def self.search(params = {})
 		recipes = params[:recipe_ids].present?? Recipe.find(params[:recipe_ids]):Recipe.all

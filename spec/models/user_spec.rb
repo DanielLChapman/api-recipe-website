@@ -57,6 +57,7 @@ describe User do
 			@user.destroy
 			recipes.each do |recipe|
 				expect(Recipe.find(recipe)).to raise_error ActiveRecord::RecordNotFound
+				expect(Ingredient.find(recipe.ingredients)).to raise_error ActiveRecord::RecordNotFound
 				expect(Step.find(recipe.steps)).to raise_error ActiveRecord::RecordNotFound
 			end
 		end
