@@ -19,4 +19,41 @@ RSpec.describe IngredientsController, type: :controller do
 		
 		it { should respond_with 200 }
 	end
+	
+	describe "PUT/PATCH #update" do
+		before(:each) do
+			@user = FactoryGirl.create :user
+			api_authorization_header @user.auth_token
+			@recipe = FactoryGirl.create :recipe, user: @user
+			@ingredient = FactoryGirl.create :ingredient, recipe: @recipe
+		end
+		
+		context "when is successfully updated" do
+			before(:each) do 
+				patch :update, params: { recipe_id: @recipe.id, id: @ingredient.id, ingredient: { name: "An expensive donut" } }
+			end
+			
+			it "renders the json representation for the update" do
+				ingredient_response = json_response
+				expect(ingredient_response[:name]).to eql "An expensive donut"
+			end
+			
+			it { should respond_with 200 }
+			
+		end
+		
+		
+		context "when is not updated" do
+			before(:each) do
+				patch :update, params: { recipe_id: @recipe.id, id: @ingredient.id, ingredient: {name: "" } }
+			end
+			
+			it "renders an errors json" do
+				ingredient_response = json_response
+				expect(ingredient_response).to have_key(:errors)
+			end
+			
+			it { should respond_with 422 }
+		end
+	end
 end
