@@ -20,6 +20,22 @@ RSpec.describe IngredientsController, type: :controller do
 		it { should respond_with 200 }
 	end
 	
+	describe "POST #create" do
+		before(:each) do
+			@user = FactoryGirl.create :user
+			api_authorization_header @user.auth_token
+			@recipe = FactoryGirl.create :recipe, user: @user
+			post :create, params: { recipe_id: @recipe.id, ingredient: { amount: "one", name: "blahblahblah"}, format: :json }
+		end
+		
+		it "returns the JSON step record" do
+			ingredient_response = json_response
+			expect(ingredient_response[:id]).to be_present
+		end
+		
+		it { should respond_with 201 }
+	end
+	
 	describe "PUT/PATCH #update" do
 		before(:each) do
 			@user = FactoryGirl.create :user
