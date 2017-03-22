@@ -39,6 +39,15 @@ var searchChange = function() {
 		$('.search-open').show();
 	}
 }
+//Open recipe-title boxes
+var lastSelected = "";
+var openRecipes = function(secClass) {
+	$('.recipe-titles').hide();
+	if (lastSelected != secClass) { 
+		$('.'+secClass).show();
+	}
+	lastSelected = secClass;
+}
 
 //Parsing
 var recipeParse = function(data) {

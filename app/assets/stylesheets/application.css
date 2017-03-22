@@ -50,9 +50,11 @@ body, html {
 .fa-bars {
 	position: absolute;
 	left: 3.75%;
+	z-index: 15;
 }
 		
 .menu-open {
+	z-index: 15;
 	position: absolute;
 	top: 3.65%;
 	width: 400px;
@@ -61,6 +63,7 @@ body, html {
 	border: 1px solid white;
 	left: 7.75%;
 	background: rgba(102, 145, 153, .9);
+	overflow-y: scroll;
 }
 .search-open {
 	position: absolute;
@@ -88,6 +91,57 @@ body, html {
 	font-family: 'Roboto', sans-serif;
 	color: white;
 	letter-spacing: 1.1px;
+}
+.recipe-titles {
+	width: 90%;
+	position: relative;
+	left: 5%;
+	border:1px solid lightgray;
+	min-height: 300px;
+	height: auto;
+	display: none;
+	margin: 2px;
+	text-align: center;
+}
+.recipe-info{
+	width: 95%;
+	top: -20px;
+	position: relative;
+	left: 1.5%;
+	padding: 0;
+	padding-left: 1.5%;
+	min-height: 35px;
+	background: rgba(255,255,255,.7);
+	margin: 0;
+	margin-bottom: -15px;
+}
+.recipe-info h6 {
+	text-align: left;
+	position: relative;
+	top: 5px;
+	font-family: 'Lato', sans-serif;	
+	letter-spacing: 1.05px;	
+}
+
+/* scrollbars 
+https://codepen.io/GhostRider/pen/GHaFw
+*/
+.menu-open::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	background-color: #F5F5F5;
+}
+
+.menu-open::-webkit-scrollbar
+{
+	width: 10px;
+	background-color: #F5F5F5;
+}
+
+.menu-open::-webkit-scrollbar-thumb
+{
+	background-color: #000000;
+	border: 2px solid #555555;
 }
 
 /* Media screens */
