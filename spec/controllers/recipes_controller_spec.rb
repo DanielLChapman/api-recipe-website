@@ -18,33 +18,34 @@ RSpec.describe RecipesController do
 		it { is_expected.to respond_with 200 }
 	end
 	
-	describe "GET #show instructions" do
-		before(:each) do
-			@user = FactoryGirl.create :user
-			@recipe = FactoryGirl.create :recipe, user: @user
-			@step1 = FactoryGirl.create :step, recipe: @recipe, order: 2
-			@step1.save
-			@step2 = FactoryGirl.create :step, recipe: @recipe, order: 4
-			@step2.save
-			@step3 = FactoryGirl.create :step, recipe: @recipe, order: 6
-			@step3.save
-			@step4 = FactoryGirl.create :step, recipe: @recipe, order: 1
-			@step4.save
-			get :show, params: {id: @recipe.id, format: :json}
-		end
+	#removed for more optimization, only will pull this information when the recipe is loaded
+	#describe "GET #show instructions" do
+	#	before(:each) do
+	#		@user = FactoryGirl.create :user
+	#		@recipe = FactoryGirl.create :recipe, user: @user
+	#		@step1 = FactoryGirl.create :step, recipe: @recipe, order: 2
+	#		@step1.save
+	#		@step2 = FactoryGirl.create :step, recipe: @recipe, order: 4
+	#		@step2.save
+	#		@step3 = FactoryGirl.create :step, recipe: @recipe, order: 6
+	#		@step3.save
+	#		@step4 = FactoryGirl.create :step, recipe: @recipe, order: 1
+	#		@step4.save
+	#		get :show, params: {id: @recipe.id, format: :json}
+	#	end
+	#	
+	#	it "returns the steps" do
+	#		recipes_response = json_response
+	#		expect(recipes_response[:recipe][:steps].length).to eql(4)
+	#	end
+	#	
+	#	it "orders the steps by order" do
+	#		recipes_response = json_response
+	#		expect(recipes_response[:recipe][:steps][0][:order]).to eql(1)
+	#		expect(recipes_response[:recipe][:steps][1][:order]).to eql(2)
+	#	end
 		
-		it "returns the steps" do
-			recipes_response = json_response
-			expect(recipes_response[:recipe][:steps].length).to eql(4)
-		end
-		
-		it "orders the steps by order" do
-			recipes_response = json_response
-			expect(recipes_response[:recipe][:steps][0][:order]).to eql(1)
-			expect(recipes_response[:recipe][:steps][1][:order]).to eql(2)
-		end
-		
-	end
+	#end
 	
 	describe "GET #index" do
 		before(:each) do

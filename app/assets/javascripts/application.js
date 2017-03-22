@@ -13,3 +13,43 @@
 //= require jquery
 //= require jquery_ujs
 //= require_tree .
+
+//Parsing
+var recipeParse = function(data) {
+	var results = [];
+	for (var x = 0; x < data.length; x++) {
+		var tempArr = [];
+		tempArr.push(data[x].id);
+		tempArr.push(data[x].title);
+		tempArr.push(data[x].description);
+		tempArr.push(data[x].meal);
+		tempArr.push(data[x].picture);
+		results.push(tempArr);
+	}
+	
+	return results;
+}
+
+var stepParse = function(data) {
+	var results = [];
+	for (var x = 0; x < data.length; x++) {
+		var tempArr = [];
+		tempArr.push(data[x].order);
+		tempArr.push(data[x].instruction);
+		results.push(tempArr);
+	}
+	
+	return results;
+}
+
+var ingredientParse = function(data) {
+	var results = [];
+	for (var x = 0; x < data.length; x++) {
+		var tempArr = [];
+		tempArr.push(data[x].amount);
+		tempArr.push(data[x].name);
+		results.push(tempArr);
+	}
+	
+	return results;
+}

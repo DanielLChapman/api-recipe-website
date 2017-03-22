@@ -1,0 +1,50 @@
+<h1>HERE</h1>
+
+<div class="json-output"></div>
+
+<script>
+	$(document).ready(function() {
+		$.ajax({ 
+			type: 'GET', 
+			url: '/recipes.json', 
+			data: { get_param: 'value' }, 
+			dataType: 'json',
+			success: function (data) { 
+				$.each(data, function(index, element) {
+					$('.json-output').append("<h3>"+index+"</h3> <br />");
+					var tempArr = recipeParse(element);
+					console.log(tempArr);
+				});
+			}
+		});
+		
+		$.ajax({ 
+			type: 'GET', 
+			url: '/recipes/1/steps.json', 
+			data: { get_param: 'value' }, 
+			dataType: 'json',
+			success: function (data) { 
+				$.each(data, function(index, element) {
+					$('.json-output').append("<h3>"+index+"</h3> <br />");
+					var tempArr = stepParse(element);
+					console.log(tempArr);
+				});
+			}
+		});
+		
+		$.ajax({ 
+			type: 'GET', 
+			url: '/recipes/1/ingredients.json', 
+			data: { get_param: 'value' }, 
+			dataType: 'json',
+			success: function (data) { 
+				$.each(data, function(index, element) {
+					$('.json-output').append("<h3>"+index+"</h3> <br />");
+					var tempArr = ingredientParse(element);
+					console.log(tempArr);
+				});
+			}
+		});
+	});
+
+</script>

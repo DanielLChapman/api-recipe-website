@@ -4,6 +4,7 @@ class RecipesController < ApplicationController
 	def show
 		@recipe = Recipe.find(params[:id])
 		@steps = Step.where("recipe_id=?", @recipe.id).order(:order)
+		@ingredients = Ingredient.where("recipe_id=?", @recipe.id)
 		respond_to do |format|
 			format.html
 			format.json
