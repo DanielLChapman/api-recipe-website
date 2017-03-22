@@ -9,14 +9,16 @@
 			dataType: 'json',
 			success: function (data) { 
 				$.each(data, function(index, element) {
-					//$('.json-output').append("<h3>"+index+"</h3> <br />");
-					var tempArr = recipeParse(element);
-					console.log(tempArr);
+					//var tempArr = recipeParse(element);
+					for (var x = element.length-1; x >= 0; x--) {
+						$('.all-meals-recipes').append("<section class='recipe-info'><h6>"+element[x].title+"</h6></section>");
+						$('.'+element[x].meal.toLowerCase()+'-recipes').append("<section class='recipe-info'><h6>"+element[x].title+"</h6></section>");
+					}
 				});
 			}
 		});
 		
-		$.ajax({ 
+		/*$.ajax({ 
 			type: 'GET', 
 			url: '/recipes/1/steps.json', 
 			data: { get_param: 'value' }, 
@@ -42,7 +44,7 @@
 					console.log(tempArr);
 				});
 			}
-		});
+		});*/
 	});
 
 </script>

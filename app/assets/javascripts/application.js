@@ -14,6 +14,11 @@
 //= require jquery_ujs
 //= require_tree .
 
+//capitalization
+String.prototype.capitalizeFirstLetter = function() {
+    return this.charAt(0).toUpperCase() + this.slice(1).toLowerCase();
+}
+
 //menu opening and closing
 var menuBool = false;
 var menuChange = function() {
