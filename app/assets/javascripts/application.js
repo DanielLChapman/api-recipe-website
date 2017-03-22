@@ -14,6 +14,32 @@
 //= require jquery_ujs
 //= require_tree .
 
+//menu opening and closing
+var menuBool = false;
+var menuChange = function() {
+	if (menuBool) {
+		menuBool = !menuBool;
+		$('.menu-open').hide();
+	}
+	else {
+		menuBool = !menuBool;
+		$('.menu-open').show();
+	}
+}
+
+//search opening and closing
+var searchBool = false;
+var searchChange = function() {
+	if (searchBool) {
+		searchBool = !searchBool;
+		$('.search-open').hide();
+	}
+	else {
+		searchBool = !searchBool;
+		$('.search-open').show();
+	}
+}
+
 //Parsing
 var recipeParse = function(data) {
 	var results = [];

@@ -13,3 +13,94 @@
  *= require_tree .
  *= require_self
  */
+
+body, html {
+	overflow-x: hidden;
+	overflow-y: hidden;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 100%;
+	background-image: url('Background medium.png');
+	background-size: cover;
+	background-position: center;
+}
+.container {
+	width: 96.5%;
+	left: 1.75%;
+	height: 95.25%;
+	top: 1.75%;
+	position: relative;
+	overflow-x: hidden;
+	margin-bottom: 1.75%;
+	border:3px dashed white;
+}
+.fa-search, .fa-bars {
+	border: 3px dashed white;
+	color: white;
+	padding: 5px;
+	position: relative;
+	font-size: 42px;
+	top: 3.75%;
+}
+.fa-search {
+	position: absolute;
+	right: 3.75%;
+}
+.fa-bars {
+	position: absolute;
+	left: 3.75%;
+}
+		
+.menu-open {
+	position: absolute;
+	top: 3.65%;
+	width: 400px;
+	min-height: 300px;
+	height: 92%;
+	border: 1px solid white;
+	left: 7.75%;
+	background: rgba(102, 145, 153, .9);
+}
+.search-open {
+	position: absolute;
+	top: 3.35%;
+	background: white;
+	width: 200px;
+	border:3px dashed white;
+	height: 45px;
+	right: 8.75%;
+	clear: right;
+}
+.meal-titles {
+	position: relative;
+	width: 94%;
+	height: 50px;
+	border:1px solid white;
+	left: 3%;
+	margin-top: 5px;
+}
+.meal-titles h4 {
+	text-align: center;
+	vertical-align: middle;
+	position: relative;
+	top: -5px;
+	font-family: 'Roboto', sans-serif;
+	color: white;
+	letter-spacing: 1.1px;
+}
+
+/* Media screens */
+@media screen and (min-width: 1700px) {
+	body, html {
+		background: url(Background%20large.png) no-repeat center center;
+		background-size: cover;
+	}
+}
+	
+@media screen and (min-height: 1000px) {
+	body, html {
+		background: url(Background%20large.png) no-repeat center center;
+		background-size: cover;
+	}
+}

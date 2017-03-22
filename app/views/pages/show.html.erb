@@ -1,5 +1,3 @@
-<h1>HERE</h1>
-
 <div class="json-output"></div>
 
 <script>
@@ -11,7 +9,7 @@
 			dataType: 'json',
 			success: function (data) { 
 				$.each(data, function(index, element) {
-					$('.json-output').append("<h3>"+index+"</h3> <br />");
+					//$('.json-output').append("<h3>"+index+"</h3> <br />");
 					var tempArr = recipeParse(element);
 					console.log(tempArr);
 				});
@@ -25,7 +23,7 @@
 			dataType: 'json',
 			success: function (data) { 
 				$.each(data, function(index, element) {
-					$('.json-output').append("<h3>"+index+"</h3> <br />");
+					//$('.json-output').append("<h3>"+index+"</h3> <br />");
 					var tempArr = stepParse(element);
 					console.log(tempArr);
 				});
@@ -39,7 +37,7 @@
 			dataType: 'json',
 			success: function (data) { 
 				$.each(data, function(index, element) {
-					$('.json-output').append("<h3>"+index+"</h3> <br />");
+					//$('.json-output').append("<h3>"+index+"</h3> <br />");
 					var tempArr = ingredientParse(element);
 					console.log(tempArr);
 				});

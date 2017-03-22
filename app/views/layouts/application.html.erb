@@ -1,14 +1,51 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>RecipeApiWebsite</title>
-    <%= csrf_meta_tags %>
+  	<head>
+    	<title>Recipe Book</title>
+	  		<script src="https://use.fontawesome.com/847d4f98dd.js"></script>
+			<link href="https://fonts.googleapis.com/css?family=Lato|Roboto" rel="stylesheet">
+			<%= csrf_meta_tags %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+			<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+			<%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+	</head>
 
-  <body>
-    <%= yield %>
+<body>
+	<div class="container">
+		<!-- Menu -->
+		<i class="fa fa-bars" aria-hidden="true" onclick="menuChange();"></i>
+		  
+		<!-- search bar -->
+		<i class="fa fa-search" aria-hidden="true" onclick="searchChange();"></i>
+		<div class="search-open" style="display: none;"></div>
+			
+		<div class="menu-open" style="display: none;">
+			<section class="meal-titles all-meals">
+				<h4>All Recipes</h4>
+			</section>
+			<section class="recipe-titles all-meals-recipes"></section>
+			<section class="meal-titles breakfast">
+				<h4>Breakfast Recipes</h4>
+			</section>
+			<section class="recipe-titles breakfast-recipes"></section>
+			<section class="meal-titles lunch">
+				<h4>Lunch Recipes</h4>
+			</section>
+			<section class="recipe-titles lunch-recipes"></section>
+			<section class="meal-titles dinner">
+				<h4>Dinner Recipes</h4>
+			</section>
+			<section class="recipe-titles dinner-recipes"></section>
+			<section class="meal-titles dessert">
+				<h4>Dessert Recipes</h4>
+			</section>
+			<section class="recipe-titles dessert-recipes"></section>
+			<section class="meal-titles snack">
+				<h4>Snack Recipes</h4>
+			</section>
+			<section class="recipe-titles snack-recipes"></section>
+		</div>
+		<%= yield %>
+	  </div>
   </body>
 </html>
