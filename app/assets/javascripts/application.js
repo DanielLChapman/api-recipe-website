@@ -25,6 +25,57 @@ String.prototype.capitalizeFirstLetter = function() {
 var viewRecipe = function(recipe_id) {
 	$('.recipe-container').show();
 	menuChange();
+	//check if we have grabbed the recipes yet
+	var currentRecipe = [];
+	if (globalRecipes.length > 0) {
+		currentRecipe = globalRecipes[recipe_id];
+	}
+	else {
+		$.ajax({ 
+			type: 'GET', 
+			//This should be the param[:recipe_id] for individual calls and not the tempArr one, will have to test
+			url: '/recipes/'+recipe_id+'.json', 
+			data: { get_param: 'value' }, 
+			dataType: 'json',
+			success: function (data) { 
+				$.each(data, function(index, element) {
+					var tempArr = recipeParse(element).reverse();
+					currentRecipe = tempArr;
+				});
+			}
+		});
+	}
+	$.ajax({ 
+		type: 'GET', 
+		url: '/recipes/'+currentRecipe[0]+'/ingredients.json', 
+		data: { get_param: 'value' }, 
+		dataType: 'json',
+		success: function (data) { 
+			$.each(data, function(index, element) {
+				var tempArr = ingredientParse(element);
+				for (var x = 0; x < tempArr.length; x++) {
+					$('.ind-recipe-ingredients').append('<li><h4>'+tempArr[x][0] + " | " + tempArr[x][1] +'</h4></li>');
+				}
+			});
+		}
+	});
+	$.ajax({ 
+		type: 'GET', 
+		url: '/recipes/'+currentRecipe[0]+'/steps.json', 
+		data: { get_param: 'value' }, 
+		dataType: 'json',
+		success: function (data) { 
+			$.each(data, function(index, element) {
+				var tempArr = stepParse(element);
+				for (var x = 0; x < tempArr.length; x++) {
+					$('.ind-recipe-steps').append('<li><h4>'+tempArr[x][0] + ". " + tempArr[x][1] +'</h4></li>');
+				}
+			});
+		}
+	});
+	$('.ind-recipe-title').text(currentRecipe[1]);
+	$('.ind-recipe-description').text(currentRecipe[2]);
+	$('.ind-recipe-image').attr("src", currentRecipe[4]);
 }
 
 //menu opening and closing
@@ -77,7 +128,6 @@ var recipeParse = function(data) {
 	
 	return results;
 }
-
 var stepParse = function(data) {
 	var results = [];
 	for (var x = 0; x < data.length; x++) {
@@ -100,4 +150,23 @@ var ingredientParse = function(data) {
 	}
 	
 	return results;
+}
+
+var populateGA = function() {
+	$.ajax({ 
+			type: 'GET', 
+			url: '/recipes.json', 
+			data: { get_param: 'value' }, 
+			dataType: 'json',
+			success: function (data) { 
+				$.each(data, function(index, element) {
+					var tempArr = recipeParse(element).reverse();
+					globalRecipes = tempArr;
+					for (var x = 0; x < tempArr.length; x++) {
+						$('.all-meals-recipes').append("<section class='recipe-info' recipe-id='"+tempArr[x][0]+"' onclick='viewRecipe("+x+")'><h6>"+tempArr[x][1]+"</h6></section>");
+						$('.'+tempArr[x][3].toLowerCase()+'-recipes').append("<section class='recipe-info'recipe-id='"+tempArr[x][0]+"'><h6>"+tempArr[x][1]+"</h6></section>");
+					}
+				});
+			}
+		});
 }

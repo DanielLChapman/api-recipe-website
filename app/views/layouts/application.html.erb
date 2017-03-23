@@ -54,38 +54,22 @@
 	</div>
 	<div class="recipe-container">
 		<section class="recipe-container-title">
-			<h2><%= FFaker::Product.product_name %></h2>
+			<h2 class="ind-recipe-title"></h2>
 		</section>
 		<section class="recipe-container-image">
-			<img src="<%= FFaker::Avatar.image %>">
+			<img class="ind-recipe-image" src="<%= FFaker::Avatar.image %>">
 		</section>
 		<section class="recipe-container-description">
-			<h3><%= FFaker::Book.description %> <%= FFaker::Book.description %> <%= FFaker::Book.description %> <%= FFaker::Book.description %> <%= FFaker::Book.description %> <%= FFaker::Book.description %></h3>
+			<h3 class="ind-recipe-description"></h3>
 		</section>
 		<section class="recipe-container-ingredients">
 			<h3>Ingredients:</h3>
-			<ol>
-				<li><h4><%= FFaker::Product.product_name %></h4></li>
-				<li><h4><%= FFaker::Product.product_name %></h4></li>
-				<li><h4><%= FFaker::Product.product_name %></h4></li>
-				<li><h4><%= FFaker::Product.product_name %></h4></li>
-				<li><h4><%= FFaker::Product.product_name %></h4></li>
-				<li><h4><%= FFaker::Product.product_name %></h4></li>
-				<li><h4><%= FFaker::Product.product_name %></h4></li>
-
+			<ol class="ind-recipe-ingredients">
 			</ol>
 		</section>
 		<section class="recipe-container-steps">
 			<h3>Instructions:</h3>
-			<ol>
-				<li><h4><%= FFaker::Book.description %> <%= FFaker::Book.description %> <%= FFaker::Book.description %> <%= FFaker::Book.description %></h4></li>
-				<li><h4><%= FFaker::Book.description %> <%= FFaker::Book.description %> <%= FFaker::Book.description %> <%= FFaker::Book.description %></h4></li>
-				<li><h4><%= FFaker::Book.description %> <%= FFaker::Book.description %> <%= FFaker::Book.description %> <%= FFaker::Book.description %></h4></li>
-				<li><h4><%= FFaker::Book.description %> <%= FFaker::Book.description %> <%= FFaker::Book.description %> <%= FFaker::Book.description %></h4></li>
-				<li><h4><%= FFaker::Book.description %> <%= FFaker::Book.description %> <%= FFaker::Book.description %> <%= FFaker::Book.description %></h4></li>
-				<li><h4><%= FFaker::Book.description %> <%= FFaker::Book.description %> <%= FFaker::Book.description %> <%= FFaker::Book.description %></h4></li>
-				<li><h4><%= FFaker::Book.description %> <%= FFaker::Book.description %> <%= FFaker::Book.description %> <%= FFaker::Book.description %></h4></li>
-				<li><h4><%= FFaker::Book.description %> <%= FFaker::Book.description %> <%= FFaker::Book.description %> <%= FFaker::Book.description %></h4></li>
+			<ol class="ind-recipe-steps">
 			</ol>
 		</section>
 	</div>

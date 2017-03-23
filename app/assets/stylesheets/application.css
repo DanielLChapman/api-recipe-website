@@ -163,7 +163,6 @@ body, html {
 	margin-bottom: -5px;
 }
 .recipe-container-title, .recipe-container-image, .recipe-container-description, .recipe-container-ingredients, .recipe-container-steps {
-	border:1px solid white;
 	position: relative;
 	left: 9%;
 }
@@ -179,7 +178,6 @@ body, html {
 	font-family: 'Roboto', sans-serif;
 }
 .recipe-container-image {
-	top: 50px;
 	width: 1000px;
 }
 .recipe-container-image {
@@ -189,26 +187,29 @@ body, html {
 .recipe-container-description {
 	width: 1000px;
 	min-height: 100px;
-	top: 50px; 
+	top: 30px; 
 }
 .recipe-container-ingredients {
 	width: 300px;
 	min-height: 400px;
-	top: 60px;
+	top: 40px;
 	vertical-align: top;
 	display: inline-block;
 	margin-bottom: 20px;
 }
 .recipe-container-ingredients ol{
-	line-height: 1px;
+	
 }
 .recipe-container-steps {
 	width: 700px;
 	min-height: 600px;
-	top: 60px;
+	top: 40px;
 	margin-bottom: 20px;
 	display: inline-block;
 	vertical-align: top;
+}
+.recipe-container-steps ol {
+	list-style: none;
 }
 
 /* scrollbars 
