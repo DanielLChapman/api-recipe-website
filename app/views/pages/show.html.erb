@@ -9,10 +9,11 @@
 			dataType: 'json',
 			success: function (data) { 
 				$.each(data, function(index, element) {
-					//var tempArr = recipeParse(element);
-					for (var x = element.length-1; x >= 0; x--) {
-						$('.all-meals-recipes').append("<section class='recipe-info'><h6>"+element[x].title+"</h6></section>");
-						$('.'+element[x].meal.toLowerCase()+'-recipes').append("<section class='recipe-info'><h6>"+element[x].title+"</h6></section>");
+					var tempArr = recipeParse(element).reverse();
+					globalRecipes = tempArr;
+					for (var x = 0; x < tempArr.length; x++) {
+						$('.all-meals-recipes').append("<section class='recipe-info' recipe-id='"+tempArr[x][0]+"' onclick='viewRecipe("+x+")'><h6>"+tempArr[x][1]+"</h6></section>");
+						$('.'+tempArr[x][3].toLowerCase()+'-recipes').append("<section class='recipe-info'recipe-id='"+tempArr[x][0]+"'><h6>"+tempArr[x][1]+"</h6></section>");
 					}
 				});
 			}

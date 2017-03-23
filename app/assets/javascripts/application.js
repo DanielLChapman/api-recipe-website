@@ -13,10 +13,18 @@
 //= require jquery
 //= require jquery_ujs
 //= require_tree .
+//Global recipe list
+var globalRecipes = [];
 
 //capitalization
 String.prototype.capitalizeFirstLetter = function() {
     return this.charAt(0).toUpperCase() + this.slice(1).toLowerCase();
+}
+
+//opening the actual recipe.
+var viewRecipe = function(recipe_id) {
+	$('.recipe-container').show();
+	menuChange();
 }
 
 //menu opening and closing
