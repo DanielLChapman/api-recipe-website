@@ -21,6 +21,77 @@ String.prototype.capitalizeFirstLetter = function() {
     return this.charAt(0).toUpperCase() + this.slice(1).toLowerCase();
 }
 
+var searchResults = [];
+
+var jsonCallSearch = function(searchTerm, meal, mealBool) {
+	var urlToUse = ''
+	if (mealBool) {
+		urlToUse = '/recipes?keyword_title='+searchTerm+'&meal='+meal.toLowerCase().capitalizeFirstLetter()+'&format=json'
+	}
+	else {
+		urlToUse = '/recipes?keyword_title='+searchTerm+'&format=json'
+	}
+	$.ajax({ 
+		type: 'GET', 
+		url: urlToUse, 
+		data: { get_param: 'value' }, 
+		dataType: 'json',
+		success: function (data) { 
+			$.each(data, function(index, element) {
+				var tempArr = recipeParse(element);
+				var tempBool = false;
+				for (var q = 0; q < tempArr.length; q++) {
+					for (var y = 0; y < searchResults.length; y++) {
+						if (searchResults[y][0] == tempArr[q][0]) {
+							tempBool = true;
+						}
+					}
+					if (!tempBool) {
+						searchResults.push(tempArr[q]);
+					}
+				}
+			});
+			console.log(searchResults);
+		}
+	});
+	return "done"
+}
+
+//Regex provided by http://stackoverflow.com/questions/19156148/i-want-to-remove-double-quotes-from-a-string
+//And http://stackoverflow.com/questions/16261635/javascript-split-string-by-space-but-ignore-space-in-quotes-notice-not-to-spli
+var search = function(text) {
+	var searchText = text;
+	var searchArr = searchText.match(/(?:[^\s"]+|"[^"]*")+/g) 
+	var mealArray = ["Breakfast",  "Lunch", "Dessert", "Snack Dinner"];
+	var searchMeal = false;
+	var mealToSearch = "";
+	for (var x = 0; x < searchArr.length; x++) {
+		if (mealArray.indexOf(searchArr[x].toLowerCase().capitalizeFirstLetter()) != -1) {
+			searchMeal = true;
+			mealToSearch = searchArr[x].toLowerCase().capitalizeFirstLetter();
+			if (searchArr.length > 1) {
+				searchArr.splice(x, 1);
+				x--;
+			}
+		}
+	}
+	for (var x = 0; x < searchArr.length; x++) {
+		
+		jsonCallSearch(searchArr[x].replace(/['"]+/g, ''), mealToSearch, searchMeal);
+	}
+	
+}
+
+$(document).keypress(function(e) {
+    var key = e.which;
+    if (key == 13) // the enter key code
+    {
+		searchResults = [];
+		if ($('.search-field').val().length > 0) {
+			search($('.search-field').val()); 
+		}
+    }
+});
 //opening the actual recipe.
 var viewRecipe = function(recipe_id) {
 	$('.recipe-container').show();
@@ -97,10 +168,12 @@ var searchChange = function() {
 	if (searchBool) {
 		searchBool = !searchBool;
 		$('.search-open').hide();
+		$('.search-open-results').hide();
 	}
 	else {
 		searchBool = !searchBool;
 		$('.search-open').show();
+		$('.search-open-results').show();
 	}
 }
 //Open recipe-title boxes

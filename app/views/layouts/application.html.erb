@@ -17,7 +17,12 @@
 		  
 		<!-- search bar -->
 		<i class="fa fa-search" aria-hidden="true" onclick="searchChange();"></i>
-		<div class="search-open" style="display: none;"></div>
+		<div class="search-open" style="display: none;">
+			<input type="text" class="search-field" name="search" style="width: 100%; height: 100%; position: relative; padding: 0; margin: 0;">
+		</div>
+		
+		<div class="search-open-results" style="display: none;" >
+		</div>
 			
 		<div class="menu-open" style="display: none;">
 			<section class="meal-titles all-meals" onclick="openRecipes('all-meals-recipes');">

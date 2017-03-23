@@ -75,14 +75,22 @@ body, html {
 }
 .search-open {
 	position: absolute;
-	top: 3.35%;
-	background: white;
+	top: 3.15%;
 	width: 200px;
-	border:3px dashed white;
 	height: 45px;
 	right: 8.75%;
 	clear: right;
 	z-index: 14;
+}
+.search-open-results {
+	z-index: 14;
+	position: absolute;
+	top: 100px;
+	width: 400px;
+	right: 3.8%;
+	background: rgba(102, 145, 153, .95);
+	overflow-y: scroll;
+	height: 600px;
 }
 .meal-titles {
 	position: relative;
@@ -186,7 +194,7 @@ body, html {
 }
 .recipe-container-description {
 	width: 1000px;
-	min-height: 100px;
+	min-height: 50px;
 	top: 30px; 
 }
 .recipe-container-ingredients {
@@ -215,19 +223,19 @@ body, html {
 /* scrollbars 
 https://codepen.io/GhostRider/pen/GHaFw
 */
-.menu-open::-webkit-scrollbar-track, .recipe-container::-webkit-scrollbar-track
+.menu-open::-webkit-scrollbar-track, .recipe-container::-webkit-scrollbar-track, .search-open-results::-webkit-scrollbar-track
 {
 	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
 	background-color: #F5F5F5;
 }
 
-.menu-open::-webkit-scrollbar, .recipe-container::-webkit-scrollbar
+.menu-open::-webkit-scrollbar, .recipe-container::-webkit-scrollbar, .search-open-results::-webkit-scrollbar
 {
 	width: 10px;
 	background-color: #F5F5F5;
 }
 
-.menu-open::-webkit-scrollbar-thumb, .recipe-container::-webkit-scrollbar-thumb
+.menu-open::-webkit-scrollbar-thumb, .recipe-container::-webkit-scrollbar-thumb, .search-open-results::-webkit-scrollbar-thumb
 {
 	background-color: #000000;
 	border: 2px solid #555555;
