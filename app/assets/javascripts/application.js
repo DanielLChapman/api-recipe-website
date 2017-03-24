@@ -51,10 +51,8 @@ var jsonCallSearch = function(searchTerm, meal, mealBool) {
 					}
 				}
 			});
-			console.log(searchResults);
 		}
 	});
-	return "done"
 }
 
 //Regex provided by http://stackoverflow.com/questions/19156148/i-want-to-remove-double-quotes-from-a-string
