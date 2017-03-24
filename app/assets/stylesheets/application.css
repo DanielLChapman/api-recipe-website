@@ -90,7 +90,7 @@ body, html {
 	right: 3.8%;
 	background: rgba(102, 145, 153, .95);
 	overflow-y: scroll;
-	height: 600px;
+	height: 400px;
 }
 .meal-titles {
 	position: relative;

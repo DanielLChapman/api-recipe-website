@@ -51,6 +51,9 @@ var jsonCallSearch = function(searchTerm, meal, mealBool) {
 					}
 				}
 			});
+			for (var p = 0; p < searchResults.length; p++) {
+				$('.search-open-results').append("<section class='recipe-info' recipe-id='"+searchResults[p][0]+"' onclick='viewRecipeFromSearch("+p+")'><h6>"+searchResults[p][1]+"</h6></section>");
+			}
 		}
 	});
 }
@@ -91,9 +94,27 @@ $(document).keypress(function(e) {
     }
 });
 //opening the actual recipe.
+var viewRecipeFromSearch = function(recipe_id) {
+	var forFailToCall = false;
+	for (var x = 0; x < globalRecipes.length; x++) {
+		if (globalRecipes[x][1] == searchResults[recipe_id][1]) {
+			forFailToCall = true;
+			viewRecipe(x);
+		}
+	}
+	if (!forFailToCall) {
+		viewRecipe(searchResults[recipe_id][0]);
+	}
+}
 var viewRecipe = function(recipe_id) {
 	$('.recipe-container').show();
-	menuChange();
+	if (menuBool) {
+		menuChange();
+	}
+	if (searchBool) {
+		searchChange();
+	}
+	
 	//check if we have grabbed the recipes yet
 	var currentRecipe = [];
 	if (globalRecipes.length > 0) {
@@ -235,7 +256,7 @@ var populateGA = function() {
 					globalRecipes = tempArr;
 					for (var x = 0; x < tempArr.length; x++) {
 						$('.all-meals-recipes').append("<section class='recipe-info' recipe-id='"+tempArr[x][0]+"' onclick='viewRecipe("+x+")'><h6>"+tempArr[x][1]+"</h6></section>");
-						$('.'+tempArr[x][3].toLowerCase()+'-recipes').append("<section class='recipe-info'recipe-id='"+tempArr[x][0]+"'><h6>"+tempArr[x][1]+"</h6></section>");
+						$('.'+tempArr[x][3].toLowerCase()+'-recipes').append("<section class='recipe-info'recipe-id='"+tempArr[x][0]+"' onclick='viewRecipe("+x+")'><h6>"+tempArr[x][1]+"</h6></section>");
 					}
 				});
 			}
