@@ -75,10 +75,10 @@ var search = function(text) {
 			}
 		}
 	}
-	for (var x = 0; x < searchArr.length; x++) {
+	//for (var x = 0; x < searchArr.length; x++) {
 		
-		jsonCallSearch(searchArr[x].replace(/['"]+/g, ''), mealToSearch, searchMeal);
-	}
+	jsonCallSearch(searchArr.join(' '), mealToSearch, searchMeal);
+	//}
 	
 }
 
