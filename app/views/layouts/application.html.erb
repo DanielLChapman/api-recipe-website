@@ -11,6 +11,7 @@
 	</head>
 
 <body>
+	<% if controller_name != 'sessions' %>
 	<div class="container">
 		<!-- Menu -->
 		<i class="fa fa-bars" aria-hidden="true" onclick="menuChange();"></i>
@@ -52,7 +53,6 @@
 			</section>
 			<section class="recipe-titles snack-recipes"></section>
 		</div>
-		<%= yield %>
 		<div class="main-text">
 			<h1>Welcome to my<br />Recipe Book</h1>
 		</div>
@@ -78,5 +78,7 @@
 			</ol>
 		</section>
 	</div>
+	<% end %>
+	<%= yield %>
   </body>
 </html>

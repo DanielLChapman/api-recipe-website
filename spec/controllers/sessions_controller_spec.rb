@@ -11,7 +11,7 @@ RSpec.describe SessionsController, type: :controller do
 		context "When the credentitals are correct" do
 			before(:each) do
 				credentials = { email:@user.email, password: "12345678"}
-				post :create, params: { session: credentials }
+				post :create, params: { user: credentials }
 			end
 			
 			it "returns the user record corresponding to the given credentials" do
@@ -25,7 +25,7 @@ RSpec.describe SessionsController, type: :controller do
 		context "when the credentials are incorrect" do
 			before(:each) do
 				credentials = { email: @user.email, password: "invalidpassword" }
-				post :create, params: { session: credentials }
+				post :create, params: { user: credentials }
 			end
 			
 			it "returns a json with an error" do

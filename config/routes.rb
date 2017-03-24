@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 	root 'pages#show'
 	
 	get "pages/show"
+	get "pages/admin"
 	
 	resources :users, :only => [:show, :create, :update, :destroy]
 	resources :sessions, :only => [:create, :destroy]
