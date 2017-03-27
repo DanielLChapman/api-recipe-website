@@ -8,11 +8,15 @@
 
 			<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
 			<%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+		<% if @adminPage %>
+		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+		<% end %>
 	</head>
 
-<body>
-	<% if controller_name != 'sessions' %>
-	<div class="container">
+<body class="<%= controller_name %> <%= action_name %>">
+	<% if @adminPage == false %>
+	<div class="container-normal">
 		<!-- Menu -->
 		<i class="fa fa-bars" aria-hidden="true" onclick="menuChange();"></i>
 		  
@@ -78,6 +82,12 @@
 			</ol>
 		</section>
 	</div>
+	<% else %>
+		<style>
+			body, html {
+				background: white;
+			}
+		</style>
 	<% end %>
 	<%= yield %>
   </body>

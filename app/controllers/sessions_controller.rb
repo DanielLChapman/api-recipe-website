@@ -1,7 +1,7 @@
 class SessionsController < ApplicationController
 	
 	respond_to :json
-	skip_before_aaction :authenticate_with_token!
+	#skip_before_action :authenticate_with_token!, only: [:create, :destroy]
 	
 	def create
 		user_password = params[:user][:password]

@@ -31,6 +31,7 @@ var jsonCallSearch = function(searchTerm, meal, mealBool) {
 	else {
 		urlToUse = '/recipes?keyword_title='+searchTerm+'&format=json'
 	}
+	$('.search-open-results').empty();
 	$.ajax({ 
 		type: 'GET', 
 		url: urlToUse, 
@@ -82,16 +83,18 @@ var search = function(text) {
 	//}
 	
 }
-
 $(document).keypress(function(e) {
-    var key = e.which;
-    if (key == 13) // the enter key code
-    {
-		searchResults = [];
-		if ($('.search-field').val().length > 0) {
-			search($('.search-field').val()); 
+	if ($(".pages.admin")[0]){
+	} else {
+    	var key = e.which;
+		if (key == 13) // the enter key code
+		{
+			searchResults = [];
+			if ($('.search-field').val().length > 0) {
+				search($('.search-field').val()); 
+			}
 		}
-    }
+	}
 });
 //opening the actual recipe.
 var viewRecipeFromSearch = function(recipe_id) {
@@ -262,3 +265,21 @@ var populateGA = function() {
 			}
 		});
 }
+
+$(document).on('submit', '.edit-recipe-form', function() {
+	console.log("here");
+	var valuesToSubmite = $(this).serialize();
+	$.ajax({
+		type: "PATCH",
+		url: $(this).attr('action'),
+		beforeSend: function (xhr) {
+			xhr.setRequestHeader('Authorization', auth_token);
+		},
+		data: valuesToSubmite,
+		dataType: "JSON",
+		success: function (data) { 
+        	console.log("success", data);
+		}
+    });
+    return false;
+});

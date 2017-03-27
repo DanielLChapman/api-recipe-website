@@ -11,6 +11,10 @@ class RecipesController < ApplicationController
 		end
 	end
 	
+	def edit 
+		@recipe = Recipe.find(params[:id])
+	end
+	
 	def index
 		@recipe = Recipe.search(params)
 		respond_to do |format|

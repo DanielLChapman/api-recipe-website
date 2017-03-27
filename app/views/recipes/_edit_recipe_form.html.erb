@@ -1,0 +1,34 @@
+<%= form_for(@recipe, remote: true, method: "patch", html: {class: "edit-recipe-form"}, Authorization: local_assigns[:auth]) do |f| %>
+  <% if @recipe.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@recipe.errors.count, "error") %> prohibited this @recipe from being saved:</h2>
+
+      <ul>
+      <% @recipe.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+	<div class="form-group">
+		<%= local_assigns[:auth] %>
+		<label for="title">Title:</label>
+		<%= f.text_field :title, class: "form-control", id: "title" %>
+	</div>
+	<div class="form-group">
+		<label for="description">Description:</label>
+		<%= text_area(:description, :text, class: "form-control", rows: 5, id: "description") %>
+	</div>
+	<div class="form-group">
+		<label for="title">Meal:</label>
+		<%= f.text_field :meal, class: "form-control", id: "meal"%>
+	</div>
+	<div class="form-group">
+			<label for="Image">Image:</label>
+			<%= f.text_field :picture, class: "form-control", id: "meal"%>
+	</div>
+	<%= f.hidden_field :user_id, value: 0, class: "hidden-id" %>
+	<%= f.hidden_field :Authorization, value: 0, class: "Authorization" %>
+    <%= f.submit 'Submit', class: "edit-recipe-button" %>
+<% end %>

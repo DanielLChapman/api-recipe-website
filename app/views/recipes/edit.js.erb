@@ -1,0 +1,5 @@
+var auth_token = $('.container').attr("auth_token");
+console.log(auth_token);
+var user_id = $('.container').attr("user_id");
+$(".edit-recipe-grouping").html("<h2>Editing Recipes:</h2><%= escape_javascript(render(:partial => 'edit_recipe_form'))%>");
+

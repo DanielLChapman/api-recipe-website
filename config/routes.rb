@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 	
 	resources :users, :only => [:show, :create, :update, :destroy]
 	resources :sessions, :only => [:create, :destroy]
-	resources :recipes, :only => [:show, :index, :create, :update, :destroy] do
+	resources :recipes, :only => [:edit, :show, :index, :create, :update, :destroy] do
 		resources :steps, :only => [:index, :create, :update, :destroy, :edit]
 		resources :ingredients, :only => [:index, :create, :update, :destroy, :edit]
 	end
