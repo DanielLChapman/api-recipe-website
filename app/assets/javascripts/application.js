@@ -266,9 +266,9 @@ var populateGA = function() {
 		});
 }
 
-$(document).on('submit', '.edit-recipe-form', function() {
-	console.log("here");
+$(document).on('submit', '.edit-recipe-form', function(e) {
 	var valuesToSubmite = $(this).serialize();
+	e.preventDefault();
 	$.ajax({
 		type: "PATCH",
 		url: $(this).attr('action'),

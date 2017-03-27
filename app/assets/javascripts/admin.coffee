@@ -17,7 +17,6 @@ sortAdminData = (data) ->
 				(($) ->
 					$('.recipe-table-body').append("<tr><td>"+data.recipes[i].id+"</td><td>"+data.recipes[i].title+"</td><td><a data-remote='true' href='/recipes/"+data.recipes[i].id+"/edit'>Edit</a></td></tr>");
 				) jQuery
-			console.log(data.recipes.length);
 	
 $(".pages.admin").ready ->
   $(".login_form").on("ajax:success", (e, data, status, xhr) ->

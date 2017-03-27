@@ -12,13 +12,12 @@
   <% end %>
 
 	<div class="form-group">
-		<%= local_assigns[:auth] %>
 		<label for="title">Title:</label>
 		<%= f.text_field :title, class: "form-control", id: "title" %>
 	</div>
 	<div class="form-group">
 		<label for="description">Description:</label>
-		<%= text_area(:description, :text, class: "form-control", rows: 5, id: "description") %>
+		<%= f.text_area(:description, class: "form-control", rows: 5, id: "description") %>
 	</div>
 	<div class="form-group">
 		<label for="title">Meal:</label>
@@ -28,7 +27,5 @@
 			<label for="Image">Image:</label>
 			<%= f.text_field :picture, class: "form-control", id: "meal"%>
 	</div>
-	<%= f.hidden_field :user_id, value: 0, class: "hidden-id" %>
-	<%= f.hidden_field :Authorization, value: 0, class: "Authorization" %>
     <%= f.submit 'Submit', class: "edit-recipe-button" %>
 <% end %>
