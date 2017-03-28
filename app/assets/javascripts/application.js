@@ -15,6 +15,8 @@
 //= require_tree .
 //Global recipe list
 var globalRecipes = [];
+var auth_token = "";
+var user_id = "";
 
 //capitalization
 String.prototype.capitalizeFirstLetter = function() {
@@ -266,9 +268,17 @@ var populateGA = function() {
 		});
 }
 
-$(document).on('submit', '.edit-recipe-form', function(e) {
+
+
+//ADMIN PAGE
+var setAuthUser = function() {
+	auth_token = $('.container').attr("auth_token");
+	user_id = $('.container').attr("user_id");
+}
+$(document).on('submit', '.edit-recipe-form', function(event) {
+	setAuthUser();
 	var valuesToSubmite = $(this).serialize();
-	e.preventDefault();
+	event.preventDefault();
 	$.ajax({
 		type: "PATCH",
 		url: $(this).attr('action'),
@@ -278,8 +288,30 @@ $(document).on('submit', '.edit-recipe-form', function(e) {
 		data: valuesToSubmite,
 		dataType: "JSON",
 		success: function (data) { 
-        	console.log("success", data);
+			console.log("success");
+        	sortAdminData();
 		}
     });
     return false;
+});
+
+$(document).on('click', '.recipe-delete', function(event) {
+	event.preventDefault();
+	var url = "/recipes/"+$(this).attr('rid');
+	console.log(url);
+	setAuthUser();
+	$.ajax({
+		type: "DELETE",
+		url: url,
+		beforeSend: function (xhr) {
+			xhr.setRequestHeader('Authorization', auth_token);
+		},
+		dataType: "JSON",
+		success: function (data) { 
+			console.log("success");
+        	sortAdminData();
+		}
+    });
+
+	return false;
 });
