@@ -275,6 +275,7 @@ var setAuthUser = function() {
 	auth_token = $('.container').attr("auth_token");
 	user_id = $('.container').attr("user_id");
 }
+//edits
 $(document).on('submit', '.edit-recipe-form', function(event) {
 	setAuthUser();
 	var valuesToSubmite = $(this).serialize();
@@ -294,7 +295,48 @@ $(document).on('submit', '.edit-recipe-form', function(event) {
     });
     return false;
 });
+$(document).on('submit', '.edit-step-form', function(event) {
+	setAuthUser();
+	var valuesToSubmite = $(this).serialize();
+	event.preventDefault();
+	$.ajax({
+		type: "PATCH",
+		url: $(this).attr('action'),
+		beforeSend: function (xhr) {
+			xhr.setRequestHeader('Authorization', auth_token);
+		},
+		data: valuesToSubmite,
+		dataType: "JSON",
+		success: function (data) { 
+			console.log("success");
+			$('.edit-step-table-td-order-'+data.id).text(data.order);
+			$('.edit-step-table-td-instruction-'+data.id).text(data.instruction);
+		}
+    });
+    return false;
+});
+$(document).on('submit', '.edit-ingredients-form', function(event) {
+	setAuthUser();
+	var valuesToSubmite = $(this).serialize();
+	event.preventDefault();
+	$.ajax({
+		type: "PATCH",
+		url: $(this).attr('action'),
+		beforeSend: function (xhr) {
+			xhr.setRequestHeader('Authorization', auth_token);
+		},
+		data: valuesToSubmite,
+		dataType: "JSON",
+		success: function (data) { 
+			console.log("success");
+			$('.edit-ingredient-table-td-amount-'+data.id).text(data.amount);
+			$('.edit-ingredient-table-td-name-'+data.id).text(data.name);
+		}
+    });
+    return false;
+});
 
+//delete
 $(document).on('click', '.recipe-delete', function(event) {
 	event.preventDefault();
 	var url = "/recipes/"+$(this).attr('rid');
@@ -316,7 +358,10 @@ $(document).on('click', '.recipe-delete', function(event) {
 	return false;
 });
 
+
+//grab all steps for recipe
 $(document).on('click', '.edit-step-button', function() {
+	var rid = $(this).attr('rid');
 	var url = "/recipes/"+$(this).attr('rid')+"/steps";
 	$.ajax({
 		type: "GET",
@@ -324,14 +369,15 @@ $(document).on('click', '.edit-step-button', function() {
 		dataType: "JSON",
 		success: function (data) { 
 			for (var i = 0; i < data.steps.length; i++) {
-				$('.step-table-body').append("<tr><td>"+data.steps[i].id+"</td><td>"+data.steps[i].order+"</td><td>"+data.steps[i].instruction+"</td><td><a data-remote='true' href='/recipes/"+data.steps[i].id+"/edit'>Edit</a></td><td><a class='recipe-delete' data-confirm='You Sure?' rel='nofollow' data-remote='true' data-method='delete' href='/recipes/"+data.steps[i].id+"/' rid='"+data.steps[i].id+"'>Delete</a></td></tr>");
+				$('.step-table-body').append("<tr><td>"+data.steps[i].id+"</td><td class='edit-step-table-td-order-"+data.steps[i].id+"'>"+data.steps[i].order+"</td><td class='edit-step-table-td-instruction-"+data.steps[i].id+"'>"+data.steps[i].instruction+"</td><td><a data-remote='true' href='/recipes/"+rid+"/steps/"+data.steps[i].id+"/edit'>Edit</a></td><td><a class='recipe-delete' data-confirm='You Sure?' rel='nofollow' data-remote='true' data-method='delete' ref='/recipes/"+rid+"/steps/"+data.steps[i].id+"/' rid='"+data.steps[i].id+"'>Delete</a></td></tr>");
 			}
 		}			
     });
 });
 
-
+//grab all ingredients for recipes
 $(document).on('click', '.edit-ingredient-button', function() {
+	var rid = $(this).attr('rid');
 	var url = "/recipes/"+$(this).attr('rid')+"/ingredients";
 	$.ajax({
 		type: "GET",
@@ -339,7 +385,7 @@ $(document).on('click', '.edit-ingredient-button', function() {
 		dataType: "JSON",
 		success: function (data) { 
 			for (var i = 0; i < data.ingredients.length; i++) {
-				$('.ingredient-table-body').append("<tr><td>"+data.ingredients[i].id+"</td><td>"+data.ingredients[i].amount+"</td><td>"+data.ingredients[i].name+"</td><td><a data-remote='true' href='/recipes/"+data.ingredients[i].id+"/edit'>Edit</a></td><td><a class='recipe-delete' data-confirm='You Sure?' rel='nofollow' data-remote='true' data-method='delete' href='/recipes/"+data.ingredients[i].id+"/' rid='"+data.ingredients[i].id+"'>Delete</a></td></tr>");
+				$('.ingredient-table-body').append("<tr><td>"+data.ingredients[i].id+"</td><td class='edit-ingredient-table-td-amount-"+data.ingredients[i].id+"'>"+data.ingredients[i].amount+"</td><td class='edit-ingredient-table-td-name-"+data.ingredients[i].id+"'>"+data.ingredients[i].name+"</td><td><a data-remote='true' href='/recipes/"+rid+"/ingredients/"+data.ingredients[i].id+"/edit'>Edit</a></td><td><a class='recipe-delete' data-confirm='You Sure?' rel='nofollow' data-remote='true' data-method='delete' ref='/recipes/"+rid+"/ingredients/"+data.ingredients[i].id+"/'>Delete</a></td></tr>");
 			}
 		}			
     });

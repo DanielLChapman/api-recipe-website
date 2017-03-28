@@ -9,7 +9,7 @@ Rails.application.routes.draw do
 	resources :users, :only => [:show, :create, :update, :destroy]
 	resources :sessions, :only => [:create, :destroy]
 	resources :recipes, :only => [:edit, :show, :index, :create, :update, :destroy] do
-		resources :steps, :only => [:index, :create, :update, :destroy, :edit]
-		resources :ingredients, :only => [:index, :create, :update, :destroy, :edit]
+		resources :steps, :only => [:edit, :index, :create, :update, :destroy]
+		resources :ingredients, :only => [:edit, :index, :create, :update, :destroy]
 	end
 end

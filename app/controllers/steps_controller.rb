@@ -10,6 +10,11 @@ class StepsController < ApplicationController
 		end
 	end
 	
+	def edit
+		@recipe = Recipe.find(params[:recipe_id])
+		@step = @recipe.steps.find(params[:id])
+	end
+	
 	def create
 		recipe = Recipe.find(params[:recipe_id])
 		step = recipe.steps.build(step_params)

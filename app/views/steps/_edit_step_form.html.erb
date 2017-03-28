@@ -1,0 +1,12 @@
+<%= form_for(@step, remote: true, url: recipe_step_path(@step), method: "patch", html: {class: "edit-step-form"}) do |f| %>
+
+	<div class="form-group">
+		<label for="order">Order:</label>
+		<%= f.text_field :order, class: "form-control", id: "order" %>
+	</div>
+	<div class="form-group">
+		<label for="Instruction">Instruction:</label>
+		<%= f.text_area(:instruction, class: "form-control", rows: 5, id: "instruction") %>
+	</div>
+    <%= f.submit 'Submit', class: "edit-step-form-button" %>
+<% end %>
