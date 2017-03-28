@@ -1,3 +1,3 @@
 json.steps @steps do |steps|
-	json.(steps, :instruction, :order)
+	json.(steps, :id, :instruction, :order)
 end

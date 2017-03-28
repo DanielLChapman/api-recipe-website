@@ -68,8 +68,8 @@
 				  </div>
 			  </div>
 		  </div>
-			<div class="row edit-steps" style="height: auto; overflow-y: scroll;max-height: 400px;">
-				 <div class="table-div col-sm-7 col-xs-12">
+			<div class="row edit-steps" >
+				 <div class="table-div col-sm-7 col-xs-12" style="height: auto; overflow-y: scroll;max-height: 400px;">
 				  <h2>Steps</h2>
 					  <table class="table table-striped table-responsive ">
 						<thead>
@@ -81,18 +81,14 @@
 							  <th>Delete</th>
 						  </tr>
 						</thead>
-						<tbody>
-							<tr>
-							<td>July</td>
-							<td>Dooley</td>
-							<td>july@example.com</td>
-						  </tr>
+						<tbody class="step-table-body">
+							
 						</tbody>
 					  </table>
 			  	</div>
 			</div>
-			<div class="row edit-ingredients" style="height: auto; overflow-y: scroll; max-height: 400px;">
-				 <div class="table-div col-sm-7 col-xs-12">
+			<div class="row edit-ingredients" >
+				 <div class="table-div col-sm-7 col-xs-12" style="height: auto; overflow-y: scroll; max-height: 400px;">
 				  <h2>Ingredients</h2>
 					  <table class="table table-striped table-responsive ">
 						<thead>
@@ -104,12 +100,7 @@
 							  <th>Delete</th>
 						  </tr>
 						</thead>
-						<tbody>
-							<tr>
-							<td>July</td>
-							<td>Dooley</td>
-							<td>july@example.com</td>
-						  </tr>
+						<tbody class="ingredient-table-body">
 						</tbody>
 					  </table>
 			  	</div>
@@ -142,6 +133,10 @@
 	<style>
 		.admin-cont {
 			filter: blur(20px) grayscale(20%);"
+		}
+		body {
+			overflow-y: scroll !important;
+			padding-bottom: 20px;
 		}
 		.login-box {
 			padding: 150px;

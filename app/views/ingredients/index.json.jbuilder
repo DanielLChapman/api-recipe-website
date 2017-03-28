@@ -1,3 +1,3 @@
 json.ingredients @ingredients do |ingredient|
-	json.(ingredient, :amount, :name)
+	json.(ingredient, :id, :amount, :name)
 end
