@@ -357,6 +357,50 @@ $(document).on('click', '.recipe-delete', function(event) {
 
 	return false;
 });
+$(document).on('click', '.step-delete', function(event) {
+	event.preventDefault();
+	var sid = $(this).attr('sid');
+	var url = "/recipes/"+$(this).attr('rid')+"/steps/"+sid;
+	
+	console.log(url);
+	setAuthUser();
+	$.ajax({
+		type: "DELETE",
+		url: url,
+		beforeSend: function (xhr) {
+			xhr.setRequestHeader('Authorization', auth_token);
+		},
+		dataType: "JSON",
+		success: function (data) { 
+			console.log("success");
+        	$('.step-row'+sid).empty();
+		}
+    });
+
+	return false;
+});
+$(document).on('click', '.ingredient-delete', function(event) {
+	event.preventDefault();
+	var sid = $(this).attr('sid');
+	var url = "/recipes/"+$(this).attr('rid')+"/ingredients/"+sid;
+	
+	console.log(url);
+	setAuthUser();
+	$.ajax({
+		type: "DELETE",
+		url: url,
+		beforeSend: function (xhr) {
+			xhr.setRequestHeader('Authorization', auth_token);
+		},
+		dataType: "JSON",
+		success: function (data) { 
+			console.log("success");
+        	$('.ingredient-row'+sid).empty();
+		}
+    });
+
+	return false;
+});
 
 
 //grab all steps for recipe
@@ -369,7 +413,7 @@ $(document).on('click', '.edit-step-button', function() {
 		dataType: "JSON",
 		success: function (data) { 
 			for (var i = 0; i < data.steps.length; i++) {
-				$('.step-table-body').append("<tr><td>"+data.steps[i].id+"</td><td class='edit-step-table-td-order-"+data.steps[i].id+"'>"+data.steps[i].order+"</td><td class='edit-step-table-td-instruction-"+data.steps[i].id+"'>"+data.steps[i].instruction+"</td><td><a data-remote='true' href='/recipes/"+rid+"/steps/"+data.steps[i].id+"/edit'>Edit</a></td><td><a class='recipe-delete' data-confirm='You Sure?' rel='nofollow' data-remote='true' data-method='delete' ref='/recipes/"+rid+"/steps/"+data.steps[i].id+"/' rid='"+data.steps[i].id+"'>Delete</a></td></tr>");
+				$('.step-table-body').append("<tr class='step-row"+data.steps[i].id+"'><td>"+data.steps[i].id+"</td><td class='edit-step-table-td-order-"+data.steps[i].id+"'>"+data.steps[i].order+"</td><td class='edit-step-table-td-instruction-"+data.steps[i].id+"'>"+data.steps[i].instruction+"</td><td><a data-remote='true' href='/recipes/"+rid+"/steps/"+data.steps[i].id+"/edit'>Edit</a></td><td><a class='step-delete' data-confirm='You Sure?' rel='nofollow' data-remote='true' data-method='delete' href='#' rid='"+rid+"' sid='"+data.steps[i].id+"'>Delete</a></td></tr>");
 			}
 		}			
     });
@@ -385,7 +429,7 @@ $(document).on('click', '.edit-ingredient-button', function() {
 		dataType: "JSON",
 		success: function (data) { 
 			for (var i = 0; i < data.ingredients.length; i++) {
-				$('.ingredient-table-body').append("<tr><td>"+data.ingredients[i].id+"</td><td class='edit-ingredient-table-td-amount-"+data.ingredients[i].id+"'>"+data.ingredients[i].amount+"</td><td class='edit-ingredient-table-td-name-"+data.ingredients[i].id+"'>"+data.ingredients[i].name+"</td><td><a data-remote='true' href='/recipes/"+rid+"/ingredients/"+data.ingredients[i].id+"/edit'>Edit</a></td><td><a class='recipe-delete' data-confirm='You Sure?' rel='nofollow' data-remote='true' data-method='delete' ref='/recipes/"+rid+"/ingredients/"+data.ingredients[i].id+"/'>Delete</a></td></tr>");
+				$('.ingredient-table-body').append("<tr class='ingredient-row"+data.ingredients[i].id+"'><td>"+data.ingredients[i].id+"</td><td class='edit-ingredient-table-td-amount-"+data.ingredients[i].id+"'>"+data.ingredients[i].amount+"</td><td class='edit-ingredient-table-td-name-"+data.ingredients[i].id+"'>"+data.ingredients[i].name+"</td><td><a data-remote='true' href='/recipes/"+rid+"/ingredients/"+data.ingredients[i].id+"/edit'>Edit</a></td><td><a class='ingredient-delete' data-confirm='You Sure?' rel='nofollow' data-remote='true' data-method='delete' href='#' rid='"+rid+"' sid='"+data.ingredients[i].id+"'>Delete</a></td></tr>");
 			}
 		}			
     });
