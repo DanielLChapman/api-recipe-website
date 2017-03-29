@@ -1,0 +1,4 @@
+$('.form-grouping').hide();
+$(".edit-recipe-grouping").show();
+$(".edit-recipe-grouping").html("<h2>New Recipe:</h2><%= escape_javascript(render(:partial => 'new_recipe_form'))%>");
+

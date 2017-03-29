@@ -19,6 +19,7 @@ RSpec.describe StepsController, type: :controller do
 		it { should respond_with 201 }
 	end
 	
+	
 	describe "GET #index" do
 		before(:each) do
 			@recipe = FactoryGirl.create :recipe
