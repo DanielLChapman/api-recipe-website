@@ -111,6 +111,25 @@ var viewRecipeFromSearch = function(recipe_id) {
 		viewRecipe(searchResults[recipe_id][0]);
 	}
 }
+var ajaxCall = function(type, url, dataH, dataType, auth) {
+	return new Promise(function(resolve, reject) {
+		if (auth) {
+		}
+		else {
+			$.ajax({ 
+				type: type, 
+				//This should be the param[:recipe_id] for individual calls and not the tempArr one, will have to test
+				url: url, 
+				data: dataH, 
+				dataType: dataType,
+				success: function (data) { 
+					resolve(data);
+				}
+			});
+		}
+	});
+};
+
 var viewRecipe = function(recipe_id) {
 	$('.recipe-container').show();
 	if (menuBool) {
@@ -126,47 +145,29 @@ var viewRecipe = function(recipe_id) {
 		currentRecipe = globalRecipes[recipe_id];
 	}
 	else {
-		$.ajax({ 
-			type: 'GET', 
-			//This should be the param[:recipe_id] for individual calls and not the tempArr one, will have to test
-			url: '/recipes/'+recipe_id+'.json', 
-			data: { get_param: 'value' }, 
-			dataType: 'json',
-			success: function (data) { 
-				$.each(data, function(index, element) {
-					var tempArr = recipeParse(element).reverse();
-					currentRecipe = tempArr;
-				});
-			}
+		var data = ajaxCall('GET','/recipes/'+recipe_id+'.json',{ get_param: 'value' },'json',false);
+		$.each(data, function(index, element) {
+			var tempArr = recipeParse(element).reverse();
+			currentRecipe = tempArr;
 		});
 	}
-	$.ajax({ 
-		type: 'GET', 
-		url: '/recipes/'+currentRecipe[0]+'/ingredients.json', 
-		data: { get_param: 'value' }, 
-		dataType: 'json',
-		success: function (data) { 
-			$.each(data, function(index, element) {
-				var tempArr = ingredientParse(element);
-				for (var x = 0; x < tempArr.length; x++) {
-					$('.ind-recipe-ingredients').append('<li><h4>'+tempArr[x][0] + " | " + tempArr[x][1] +'</h4></li>');
-				}
-			});
-		}
+	ajaxCall('GET', '/recipes/'+currentRecipe[0]+'/ingredients.json',{ get_param: 'value' },'json',false).then(function(dataIng) {
+		$.each(dataIng, function(index, element) {
+			$('.ind-recipe-ingredients').empty();
+			var tempArr = ingredientParse(element);
+			for (var x = 0; x < tempArr.length; x++) {
+				$('.ind-recipe-ingredients').append('<li><h4>'+tempArr[x][0] + " | " + tempArr[x][1] +'</h4></li>');
+			}
+		});
 	});
-	$.ajax({ 
-		type: 'GET', 
-		url: '/recipes/'+currentRecipe[0]+'/steps.json', 
-		data: { get_param: 'value' }, 
-		dataType: 'json',
-		success: function (data) { 
-			$.each(data, function(index, element) {
-				var tempArr = stepParse(element);
-				for (var x = 0; x < tempArr.length; x++) {
-					$('.ind-recipe-steps').append('<li><h4>'+tempArr[x][0] + ". " + tempArr[x][1] +'</h4></li>');
-				}
-			});
-		}
+	ajaxCall('GET', '/recipes/'+currentRecipe[0]+'/steps.json',{ get_param: 'value' },'json',false).then(function(dataStep) {
+		$('.ind-recipe-steps').empty();
+		$.each(dataStep, function(index, element) {
+			var tempArr = stepParse(element);
+			for (var x = 0; x < tempArr.length; x++) {
+				$('.ind-recipe-steps').append('<li><h4>'+tempArr[x][0] + ". " + tempArr[x][1] +'</h4></li>');
+			}
+		});
 	});
 	$('.ind-recipe-title').text(currentRecipe[1]);
 	$('.ind-recipe-description').text(currentRecipe[2]);
