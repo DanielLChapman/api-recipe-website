@@ -1,0 +1,5 @@
+$('.form-grouping').hide();
+$(".edit-ingredient-grouping").show();
+$(".edit-ingredient-grouping").html("<h2>New Ingredient: </h2><%= escape_javascript(render(:partial => 'new_ingredient_form'))%>");
+
+

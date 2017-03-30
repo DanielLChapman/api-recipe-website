@@ -1,4 +1,4 @@
-<%= form_for(@ingredient, remote: true, url: recipe_ingredient_path, method: "patch", html: {class: "edit-ingredients-form"}) do |f| %>
+<%= form_for(@ingredient = Ingredient.new, remote: true, url: recipe_ingredients_path, method: "post", html: {class: "new-ingredient-form"}) do |f| %>
 
 	<div class="form-group">
 		<label for="amount">Amount:</label>

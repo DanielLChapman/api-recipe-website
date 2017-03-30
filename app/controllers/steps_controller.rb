@@ -16,6 +16,10 @@ class StepsController < ApplicationController
 	end
 	
 	
+	def new 
+		@recipe = Recipe.find(params[:recipe_id])
+	end
+	
 	def create
 		recipe = Recipe.find(params[:recipe_id])
 		step = recipe.steps.build(step_params)

@@ -1,4 +1,4 @@
-<%= form_for(@step, remote: true, url: recipe_step_path, method: "patch", html: {class: "edit-step-form"}) do |f| %>
+<%= form_for(@step = Step.new, remote: true, method: :post, url: recipe_steps_path, html: {class: "new-step-form"}) do |f| %>
 
 	<div class="form-group">
 		<label for="order">Order:</label>

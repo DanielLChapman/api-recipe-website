@@ -341,6 +341,30 @@ $(document).on('submit', '.new-recipe-form', function(event) {
 	
     return false;
 });
+$(document).on('submit', '.new-ingredient-form', function(event) {
+	setAuthUser();
+	var valuesToSubmite = $(this).serialize();
+	event.preventDefault();
+	var rid = $('.ingredients-new-class a').attr("rid");
+	
+	ajaxCall('POST', $(this).attr('action'), valuesToSubmite, 'json', true).then(function(data) {
+		console.log("success");
+		$('.ingredient-table-body').append("<tr class='ingredient-row"+data.id+"'><td>"+data.id+"</td><td class='edit-ingredient-table-td-amount-"+data.id+"'>"+data.amount+"</td><td class='edit-ingredient-table-td-name-"+data.id+"'>"+data.name+"</td><td><a data-remote='true' href='/recipes/"+rid+"/ingredients/"+data.id+"/edit'>Edit</a></td><td><a class='ingredient-delete' data-confirm='You Sure?' rel='nofollow' data-remote='true' data-method='delete' href='#' rid='"+rid+"' sid='"+data.id+"'>Delete</a></td></tr>");
+	});
+    return false;
+});
+$(document).on('submit', '.new-step-form', function(event) {
+	setAuthUser();
+	var valuesToSubmite = $(this).serialize();
+	event.preventDefault();
+	var rid = $('.steps-new-class a').attr("rid");
+	
+	ajaxCall('POST', $(this).attr('action'), valuesToSubmite, 'json', true).then(function(data) {
+		console.log("success");
+		$('.step-table-body').append("<tr class='step-row"+data.id+"'><td>"+data.id+"</td><td class='edit-step-table-td-order-"+data.id+"'>"+data.order+"</td><td class='edit-step-table-td-instruction-"+data.id+"'>"+data.instruction+"</td><td><a data-remote='true' href='/recipes/"+rid+"/steps/"+data.id+"/edit'>Edit</a></td><td><a class='step-delete' data-confirm='You Sure?' rel='nofollow' data-remote='true' data-method='delete' href='#' rid='"+rid+"' sid='"+data.id+"'>Delete</a></td></tr>");
+	});
+    return false;
+});
 //edits
 $(document).on('submit', '.edit-recipe-form', function(event) {
 	setAuthUser();
@@ -359,9 +383,11 @@ $(document).on('submit', '.edit-step-form', function(event) {
 	setAuthUser();
 	var valuesToSubmite = $(this).serialize();
 	event.preventDefault();
-	var url = $(this).attr('action');
+	var rid = $('.steps-new-class a').attr("rid");
+	//var url = '/recipes/'+rid+'/steps/'+id;
+	//console.log(url);
 	
-	ajaxCall('PATCH', url, valuesToSubmite, 'json', true).then(function(data) {
+	ajaxCall('PATCH', $(this).attr('action'), valuesToSubmite, 'json', true).then(function(data) {
 		console.log("success");
 		$('.edit-step-table-td-order-'+data.id).text(data.order);
 		$('.edit-step-table-td-instruction-'+data.id).text(data.instruction);
@@ -430,7 +456,9 @@ $(document).on('click', '.ingredient-delete', function(event) {
 $(document).on('click', '.edit-step-button', function() {
 	var rid = $(this).attr('rid');
 	var url = "/recipes/"+$(this).attr('rid')+"/steps";
-	
+	$('.steps-new-class').html('Steps <a rel="nofollow" data-remote="true" rid="'+rid+'" href="/recipes/'+rid+'/steps/new"><i class="fa fa-plus-square icon-step-new" aria-hidden="true" "></i></a>');
+	$('.ingredients-new-class').html('Ingredients');
+	$('.step-table-body').empty();
 	ajaxCall('GET', url, {}, 'json', true).then(function(data) {
 		for (var i = 0; i < data.steps.length; i++) {
 			$('.step-table-body').append("<tr class='step-row"+data.steps[i].id+"'><td>"+data.steps[i].id+"</td><td class='edit-step-table-td-order-"+data.steps[i].id+"'>"+data.steps[i].order+"</td><td class='edit-step-table-td-instruction-"+data.steps[i].id+"'>"+data.steps[i].instruction+"</td><td><a data-remote='true' href='/recipes/"+rid+"/steps/"+data.steps[i].id+"/edit'>Edit</a></td><td><a class='step-delete' data-confirm='You Sure?' rel='nofollow' data-remote='true' data-method='delete' href='#' rid='"+rid+"' sid='"+data.steps[i].id+"'>Delete</a></td></tr>");
@@ -442,6 +470,10 @@ $(document).on('click', '.edit-step-button', function() {
 $(document).on('click', '.edit-ingredient-button', function() {
 	var rid = $(this).attr('rid');
 	var url = "/recipes/"+$(this).attr('rid')+"/ingredients";
+	$('.ingredients-new-class').html('Ingredients <a rel="nofollow" data-remote="true" rid="'+rid+'" href="/recipes/'+rid+'/ingredients/new" ><i class="fa fa-plus-square icon-ingredient-new" aria-hidden="true"></i></a>');
+	$('.steps-new-class').html('Steps');
+	$('.ingredient-table-body').empty();
+	
 	
 	ajaxCall('GET', url, {}, 'json', true).then(function(data) {
 		for (var i = 0; i < data.ingredients.length; i++) {
