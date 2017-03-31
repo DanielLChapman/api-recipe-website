@@ -294,7 +294,8 @@ var populateGA = function() {
 
 //ADMIN PAGE
 var errorParse = function(reason) {
-	$('.error-box ul').empty();
+	console.log(reason);
+	/*$('.error-box ul').empty();
 	var reason = $.parseJSON(reason)
 	$('.error-box').fadeIn(250);
 	setTimeout(function() {
@@ -329,7 +330,7 @@ var errorParse = function(reason) {
 				for (var x = 0; x < reason.errors.name.length; x++ ) { $('.error-box ul').append("<li><h4>Name: "+reason.errors.name[x]+"</h4></li>"); }
 				break;	
 		}
-	}
+	}*/
 }
 var setAuthUser = function() {
 	auth_token = $('.container').attr("auth_token");
@@ -362,7 +363,7 @@ $(document).on('submit', '.new-ingredient-form', function(event) {
 });
 $(document).on('submit', '.new-step-form', function(event) {
 	setAuthUser();
-	var valuesToSubmite = $(this).serialize();
+	var valuesToSubmite = new FormData($(this)[0]);
 	event.preventDefault();
 	var rid = $('.steps-new-class a').attr("rid");
 	
@@ -375,7 +376,7 @@ $(document).on('submit', '.new-step-form', function(event) {
 //edits
 $(document).on('submit', '.edit-recipe-form', function(event) {
 	setAuthUser();
-	var valuesToSubmite = $(this).serialize();
+	var valuesToSubmite = new FormData($(this)[0]);
 	event.preventDefault();
 	
 	ajaxCall('PATCH', $(this).attr('action'), valuesToSubmite, 'json', true).then(function(data) {
@@ -388,7 +389,7 @@ $(document).on('submit', '.edit-recipe-form', function(event) {
 
 $(document).on('submit', '.edit-step-form', function(event) {
 	setAuthUser();
-	var valuesToSubmite = $(this).serialize();
+	var valuesToSubmite = new FormData($(this)[0]);
 	event.preventDefault();
 	var rid = $('.steps-new-class a').attr("rid");
 	//var url = '/recipes/'+rid+'/steps/'+id;
