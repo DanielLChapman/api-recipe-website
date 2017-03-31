@@ -43,12 +43,10 @@ gem "devise"
 
 gem 'arel'
 
-gem 'sqlite3'
-
 gem 'ransack'
 
 group :production do
-	gem 'sqlite3'
+	gem 'pg', '~> 0.18.1'
 end
 
 group :doc do
