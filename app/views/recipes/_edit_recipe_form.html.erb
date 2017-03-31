@@ -8,13 +8,17 @@
 		<label for="description">Description:</label>
 		<%= f.text_area(:description, class: "form-control", rows: 5, id: "description") %>
 	</div>
+<div class="form-group">
+		<label for="description">Url:</label>
+		<%= f.text_area(:url, class: "form-control", rows: 5, id: "description") %>
+	</div>
 	<div class="form-group">
 		<label for="title">Meal:</label>
 		<%= f.text_field :meal, class: "form-control", id: "meal"%>
 	</div>
 	<div class="form-group">
 			<label for="Image">Image:</label>
-			<%= f.text_field :picture, class: "form-control", id: "meal"%>
+			<%= f.file_field :picture, class: "form-control" %>
 	</div>
     <%= f.submit 'Submit', class: "edit-recipe-button" %>
 <% end %>

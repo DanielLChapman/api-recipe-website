@@ -123,6 +123,8 @@ var ajaxCall = function(type, url, dataH, dataType, auth) {
 				},
 				data: dataH,
 				dataType: dataType,
+				processData: false,
+    			contentType: false,
 				success: function (data) { 
 					resolve(data);
 				},
@@ -138,6 +140,8 @@ var ajaxCall = function(type, url, dataH, dataType, auth) {
 				url: url, 
 				data: dataH, 
 				dataType: dataType,
+				processData: false,
+    			contentType: false,
 				success: function (data) { 
 					resolve(data);
 				},
@@ -190,6 +194,8 @@ var viewRecipe = function(recipe_id) {
 	});
 	$('.ind-recipe-title').text(currentRecipe[1]);
 	$('.ind-recipe-description').text(currentRecipe[2]);
+	$('.ind-recipe-url').html("Source: <a href='" + currentRecipe[5] + "'>Here</a>" );
+	
 	$('.ind-recipe-image').attr("src", currentRecipe[4]);
 }
 
@@ -239,10 +245,11 @@ var recipeParse = function(data) {
 		tempArr.push(data[x].title);
 		tempArr.push(data[x].description);
 		tempArr.push(data[x].meal);
-		tempArr.push(data[x].picture);
+		tempArr.push(data[x].picture.picture.url);
+		console.log(data[x].picture.picture.url);
+		tempArr.push(data[x].url);
 		results.push(tempArr);
 	}
-	
 	return results;
 }
 var stepParse = function(data) {
@@ -331,7 +338,7 @@ var setAuthUser = function() {
 //news
 $(document).on('submit', '.new-recipe-form', function(event) {
 	setAuthUser();
-	var valuesToSubmite = $(this).serialize();
+	var valuesToSubmite = new FormData($(this)[0]);//$(this).serialize();
 	event.preventDefault();
 	
 	ajaxCall('POST', $(this).attr('action'), valuesToSubmite, 'json', true).then(function(data) {

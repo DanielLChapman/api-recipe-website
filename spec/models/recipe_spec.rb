@@ -9,6 +9,7 @@ RSpec.describe Recipe, type: :model do
 	it { is_expected.to respond_to(:description) }
 	it { is_expected.to respond_to(:meal) }
 	it { is_expected.to respond_to(:picture) }
+	it { is_expected.to respond_to(:url) }
 	
 	it { is_expected.to validate_presence_of :title }
 	it { is_expected.to validate_presence_of :description }

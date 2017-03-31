@@ -28,6 +28,7 @@ class RecipesController < ApplicationController
 	end
 	
 	def create
+		Rails.logger.info params[:picture]
 		recipe = current_user.recipes.build(recipe_params)
 		if recipe.save
 			render json: recipe, status: 201, location: [recipe]
@@ -54,6 +55,6 @@ class RecipesController < ApplicationController
 	private
 	
 		def recipe_params
-			params.require(:recipe).permit(:title, :description, :meal, :picture)
+			params.require(:recipe).permit(:title, :description, :meal, :picture, :url)
 		end
 end

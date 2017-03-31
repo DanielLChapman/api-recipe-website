@@ -2,6 +2,7 @@ class Recipe < ApplicationRecord
 	MEAL_NAMES = %w(Breakfast Lunch Dessert Snack Dinner)
 	validates :title, :description, :meal, :user_id, presence: true
 	validates_inclusion_of :meal, :in => MEAL_NAMES
+	mount_uploader :picture, PictureUploader
 	
 	belongs_to :user
 	has_many :steps, dependent: :destroy
