@@ -42,7 +42,7 @@ gem 'active_model_serializers'
 gem "devise"
 
 gem 'arel'
-gem 'ransack', github: 'activerecord-hackery/ransack'
+gem 'ransack'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.

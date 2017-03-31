@@ -37,7 +37,7 @@ var jsonCallSearch = function(searchTerm, meal, mealBool) {
 	$.ajax({ 
 		type: 'GET', 
 		url: urlToUse, 
-		data: { get_param: 'value' }, 
+		data: {}, 
 		dataType: 'json',
 		success: function (data) { 
 			$.each(data, function(index, element) {
@@ -246,7 +246,6 @@ var recipeParse = function(data) {
 		tempArr.push(data[x].description);
 		tempArr.push(data[x].meal);
 		tempArr.push(data[x].picture.picture.url);
-		console.log(data[x].picture.picture.url);
 		tempArr.push(data[x].url);
 		results.push(tempArr);
 	}
