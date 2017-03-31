@@ -42,7 +42,14 @@ gem 'active_model_serializers'
 gem "devise"
 
 gem 'arel'
+
+gem 'sqlite3'
+
 gem 'ransack'
+
+group :production do
+	gem 'sqlite3'
+end
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
@@ -51,10 +58,10 @@ end
 
 # Use sqlite3 as the database for Active Record
 group :development do
-  	gem 'sqlite3'
 	gem 'listen'
 end
 group :development, :test do
+	gem 'sqlite3'
 	gem "factory_girl_rails"
   	gem 'ffaker'
 end
