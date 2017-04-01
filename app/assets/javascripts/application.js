@@ -350,7 +350,7 @@ $(document).on('submit', '.new-recipe-form', function(event) {
 });
 $(document).on('submit', '.new-ingredient-form', function(event) {
 	setAuthUser();
-	var valuesToSubmite = $(this).serialize();
+	var valuesToSubmite = new FormData($(this)[0]);
 	event.preventDefault();
 	var rid = $('.ingredients-new-class a').attr("rid");
 	
@@ -405,7 +405,7 @@ $(document).on('submit', '.edit-step-form', function(event) {
 
 $(document).on('submit', '.edit-ingredients-form', function(event) {
 	setAuthUser();
-	var valuesToSubmite = $(this).serialize();
+	var valuesToSubmite = new FormData($(this)[0]);
 	event.preventDefault();
 	
 	ajaxCall('PATCH', $(this).attr('action'), valuesToSubmite, 'json', true).then(function(data) {
