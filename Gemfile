@@ -46,8 +46,7 @@ gem 'arel'
 gem 'ransack'
 
 group :production do
-	gem 'sqlite3'
-	gem 'pg', '~> 0.18.1'
+	gem 'pg', '~> 0.18.4'
 end
 
 group :doc do
