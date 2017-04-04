@@ -12,9 +12,8 @@ Rails.application.routes.draw do
 	
 	devise_scope :user do
 		get "/sign_in" => "devise/sessions#new" # custom path to login/sign_in
-		get "/sign_up" => "devise/registrations#new", as: "new_user_registration" # custom path to
-		sign_up/registration
-	  end
+		get "/sign_up" => "devise/registrations#new", as: "new_user_registration" # custom path to sign_up/registration
+	 end
 	resources :users, :only => [:show, :create, :update, :destroy]
 	resources :sessions, :only => [:create, :destroy]
 	resources :recipes, :only => [:edit, :show, :index, :create, :update, :destroy, :new] do
