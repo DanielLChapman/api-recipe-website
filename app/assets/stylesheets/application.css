@@ -188,8 +188,10 @@ body, html {
 }
 .recipe-container-image {
 	width: 1000px;
+	top: 10px;
 }
 .recipe-container-image img {
+	border-radius: 15px;
 	max-width: 50%;
 	height: auto
 }
