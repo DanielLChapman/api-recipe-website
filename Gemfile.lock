@@ -359,7 +359,7 @@ DEPENDENCIES
   jquery-rails
   listen
   mini_magick (= 4.5.1)
-  pg (~> 0.18.1)
+  pg (~> 0.18.4)
   rails (~> 5.0.2)
   ransack
   rspec-rails (~> 3.5)
