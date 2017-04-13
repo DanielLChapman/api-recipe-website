@@ -154,6 +154,7 @@ var ajaxCall = function(type, url, dataH, dataType, auth) {
 };
 
 var viewRecipe = function(recipe_id) {
+	var recipe_id = recipe_id;
 	$('.recipe-container').show();
 	if (menuBool) {
 		menuChange();
@@ -166,15 +167,22 @@ var viewRecipe = function(recipe_id) {
 	var currentRecipe = [];
 	if (globalRecipes.length > 0) {
 		currentRecipe = globalRecipes[recipe_id];
+		recipe_id = currentRecipe[0];
 	}
 	else {
-		var data = ajaxCall('GET','/recipes/'+recipe_id+'.json',{ get_param: 'value' },'json',false);
-		$.each(data, function(index, element) {
-			var tempArr = recipeParse(element).reverse();
-			currentRecipe = tempArr;
+		ajaxCall('GET', '/recipes/'+recipe_id+'.json',{  },'json',false).then(function(data) {
+			$.each(data, function(index, element) {
+				var tempArr = recipeParse(element).reverse();
+				$('.ind-recipe-title').text(element.title);
+				$('.ind-recipe-description').text(element.description);
+				$('.ind-recipe-url').html("Source: <a href='" + element.url + "'>Here</a>" );
+
+				$('.ind-recipe-image').attr("src", element.picture.picture.url);
+			});
+			populateGA();	
 		});
 	}
-	ajaxCall('GET', '/recipes/'+currentRecipe[0]+'/ingredients.json',{ get_param: 'value' },'json',false).then(function(dataIng) {
+	ajaxCall('GET', '/recipes/'+recipe_id+'/ingredients.json',{ get_param: 'value' },'json',false).then(function(dataIng) {
 		$.each(dataIng, function(index, element) {
 			$('.ind-recipe-ingredients').empty();
 			var tempArr = ingredientParse(element);
@@ -183,7 +191,7 @@ var viewRecipe = function(recipe_id) {
 			}
 		});
 	});
-	ajaxCall('GET', '/recipes/'+currentRecipe[0]+'/steps.json',{ get_param: 'value' },'json',false).then(function(dataStep) {
+	ajaxCall('GET', '/recipes/'+recipe_id+'/steps.json',{ get_param: 'value' },'json',false).then(function(dataStep) {
 		$('.ind-recipe-steps').empty();
 		$.each(dataStep, function(index, element) {
 			var tempArr = stepParse(element);
@@ -197,7 +205,13 @@ var viewRecipe = function(recipe_id) {
 	$('.ind-recipe-url').html("Source: <a href='" + currentRecipe[5] + "'>Here</a>" );
 	
 	$('.ind-recipe-image').attr("src", currentRecipe[4]);
+	history.pushState(null, null, '/recipes/' + recipe_id);
 }
+
+//currently has trouble getting back to homepage.
+window.addEventListener('popstate', function(e) { 
+	location.reload()
+});
 
 //menu opening and closing
 var menuBool = false;
